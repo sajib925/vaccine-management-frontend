@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import axios, { AxiosError } from "axios";
 import {
   Card,
   CardContent,
@@ -40,22 +41,19 @@ const RegisterForm = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(formData);
-    
 
-    const res = await fetch(
-      "https://vaccine-management-backend-7qp2.onrender.com/api/auth/register/",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      }
-    ).then((data) => {
+    try {
+      const response = await axios.post(
+        "https://vaccine-management-backend-7qp2.onrender.com/api/auth/register/",
+        formData
+      );
       toast.success("Account created successfully");
       router.push("/signIn");
-    });
+    } catch (error: any) {
+      if (error.response && error.response.data) {
+        toast.error('Something went wrong');
+      } 
+    }
   };
 
   return (
@@ -112,7 +110,7 @@ const RegisterForm = () => {
               <div className="pb-5 flex flex-col gap-4">
                 <Label className="mb-4">Password:</Label>
                 <Input
-                  type="text"
+                  type="password"
                   name="password"
                   value={formData.password}
                   onChange={handleChange}
@@ -123,7 +121,7 @@ const RegisterForm = () => {
               <div className="pb-5 flex flex-col gap-4">
                 <Label className="pb-4">Confirm Password:</Label>
                 <Input
-                  type="text"
+                  type="password"
                   name="confirm_password"
                   value={formData.confirm_password}
                   onChange={handleChange}

@@ -37,10 +37,10 @@ function Hero() {
           {!authToken && (
             <div className="flex items-center gap-x-3 mt-4">
               <Button asChild>
-                <Link href="/signin">Login</Link>
+                <Link href="/signIn">Login</Link>
               </Button>
               <Button asChild>
-                <Link href="/signup">Sign Up</Link>
+                <Link href="/signUp">Sign Up</Link>
               </Button>
             </div>
           )}
