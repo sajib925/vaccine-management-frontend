@@ -2,7 +2,7 @@
 
 
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import {
@@ -33,20 +33,26 @@ export const Patient = () => {
     age: "",
     medical_info: "",
   });
+  const [authToken , setAuthToken] = useState<string>('')
+  
+  useEffect(() => {
+      if(window !== undefined){
+          setAuthToken(window.localStorage.getItem("authToken")??'')
+      }
+  },[])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  const token = window.localStorage && window.localStorage.getItem("authToken");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const res = await fetch("http://127.0.0.1:8000/api/auth/patient/", {
+    const res = await fetch("https://vaccine-management-backend-7qp2.onrender.com/api/auth/patient/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        'Authorization': `Token ${token}`,
+        'Authorization': `Token ${authToken}`,
       },
       body: JSON.stringify(formData),
     });

@@ -56,7 +56,7 @@ const Navbar = () => {
   
       const fetchUserData = async () => {
         try {
-          const response = await axios.get<UserData>('http://127.0.0.1:8000/api/auth/profile/', {
+          const response = await axios.get<UserData>('https://vaccine-management-backend-7qp2.onrender.com/auth/profile/', {
             headers: {
               Authorization: `Token ${token}`,
             },
@@ -71,7 +71,7 @@ const Navbar = () => {
   
       const fetchPatientsData = async () => {
         try {
-          const response = await axios.get<Patient[]>('http://127.0.0.1:8000/api/auth/patient/', {
+          const response = await axios.get<Patient[]>('https://vaccine-management-backend-7qp2.onrender.com/api/auth/patient/', {
             headers: {
               Authorization: `Token ${token}`,
             },
@@ -86,7 +86,7 @@ const Navbar = () => {
   
       const fetchDoctorsData = async () => {
         try {
-          const response = await axios.get<Doctor[]>('http://127.0.0.1:8000/api/auth/doctor/', {
+          const response = await axios.get<Doctor[]>('https://vaccine-management-backend-7qp2.onrender.com/api/auth/doctor/', {
             headers: {
               Authorization: `Token ${token}`,
             },
@@ -120,7 +120,7 @@ const Navbar = () => {
     const handleLogout = async () => {
       try {
         const authToken = window.localStorage.getItem("authToken");
-        const res = await fetch('http://127.0.0.1:8000/api/auth/logout/', {
+        const res = await fetch('https://vaccine-management-backend-7qp2.onrender.com/api/auth/logout/', {
           method: 'POST',
           headers: {
             'Authorization': `Token ${authToken}`,  

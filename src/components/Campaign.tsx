@@ -41,7 +41,7 @@ const postReviewData = async (data: ReviewData) => {
       throw new Error("Authorization token not found");
     }
     const response = await axios.post(
-      "http://127.0.0.1:8000/api/review/",
+      "https://vaccine-management-backend-7qp2.onrender.com/api/review/",
       data,
       {
         headers: {
@@ -87,7 +87,7 @@ const Campaigns: React.FC = () => {
     const fetchCampaigns = async () => {
       try {
         const res = await axios.get<Campaign[]>(
-          "http://127.0.0.1:8000/api/campaign/",
+          "https://vaccine-management-backend-7qp2.onrender.com/api/campaign/",
           {
             headers: {
               Authorization: `Token ${token}`,
@@ -108,7 +108,7 @@ const Campaigns: React.FC = () => {
     const fetchReviews = async () => {
       try {
         const res = await axios.get<Review[]>(
-          "http://127.0.0.1:8000/api/review/",
+          "https://vaccine-management-backend-7qp2.onrender.com/api/review/",
           {
             headers: {
               Authorization: `Token ${token}`,

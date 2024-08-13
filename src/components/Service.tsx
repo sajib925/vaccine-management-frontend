@@ -19,7 +19,7 @@ export const Service = () => {
     const fetchVaccines = async () => {
       try {
         const res = await axios.get<VaccineService[]>(
-          "http://127.0.0.1:8000/api/service/"
+          "https://vaccine-management-backend-7qp2.onrender.com/api/service/"
         );
         setVaccines(res.data);
       } catch (error: unknown) {

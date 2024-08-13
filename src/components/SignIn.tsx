@@ -37,7 +37,7 @@ const LoginForm = () => {
     e.preventDefault();
     console.log(formData);
     
-    const res = await fetch("http://127.0.0.1:8000/api/auth/login/", {
+    const res = await fetch("https://vaccine-management-backend-7qp2.onrender.com/api/auth/login/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

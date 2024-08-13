@@ -29,15 +29,13 @@ const postVaccineData = async (data: VaccineData) => {
     
     
   try {
-    const token =
-      window.localStorage && window.localStorage.getItem("authToken");
+    const token = window.localStorage && window.localStorage.getItem("authToken");
     if (!token) {
       throw new Error("Authorization token not found");
     }
-    console.log(token);
     
     const response = await axios.post(
-      "http://127.0.0.1:8000/api/campaign/vaccine/",
+      "https://vaccine-management-backend-7qp2.onrender.com/api/campaign/vaccine/",
       data,
       {
         headers: {
@@ -61,7 +59,7 @@ const updateVaccineData = async (id: number, data: VaccineData) => {
       throw new Error("Authorization token not found");
     }
     const response = await axios.put(
-      `http://127.0.0.1:8000/api/campaign/${id}/`,
+      `https://vaccine-management-backend-7qp2.onrender.com/api/campaign/${id}/`,
       data,
       {
         headers: {
@@ -85,7 +83,7 @@ const deleteVaccineData = async (id: number) => {
       throw new Error("Authorization token not found");
     }
     await axios.delete(
-      `http://127.0.0.1:8000/api/campaign/${id}/`,
+      `https://vaccine-management-backend-7qp2.onrender.com/api/campaign/${id}/`,
       {
         headers: {
           'Authorization': `Token ${token}`,
@@ -106,8 +104,8 @@ const Vaccines: React.FC = () => {
     name: "",
     schedule: "",
   });
+
   const [updatingVaccine, setUpdatingVaccine] = useState<Vaccine | null>(null);
-  const t = window.localStorage.getItem("authToken")
   
   useEffect(() => {
     const fetchVaccines = async () => {
@@ -116,7 +114,7 @@ const Vaccines: React.FC = () => {
       
         
         const res = await axios.get<Vaccine[]>(
-          "http://127.0.0.1:8000/api/campaign/vaccine/",
+          "https://vaccine-management-backend-7qp2.onrender.com/api/campaign/vaccine/",
           {
             headers: {
               'Authorization': `Token ${token}`,

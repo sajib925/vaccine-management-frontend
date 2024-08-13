@@ -28,13 +28,14 @@ const Bookings: React.FC = () => {
     const fetchBookings = async () => {
       try {
         const res = await axios.get<Booking[]>(
-          "http://127.0.0.1:8000/api/booking/",
+          "https://vaccine-management-backend-7qp2.onrender.com/api/booking/",
           {
             headers: {
               Authorization: `Token ${token}`,
             },
           }
         );
+
         setBookings(res.data);
       } catch (error) {
         if (axios.isAxiosError(error)) {
