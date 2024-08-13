@@ -33,7 +33,7 @@ export const Doctor = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const res = await fetch("https://vaccine-management-backend-7qp2.onrender.com/api/auth/doctor/", {
+    const res = await fetch("https://vaccine-management-backend-7qp2.onrender.com/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
