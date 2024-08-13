@@ -53,18 +53,18 @@ const Bookings: React.FC = () => {
  
 
   if (loading) return <p className="text-center text-green-800">Loading...</p>;
-  if (error) return <p className="text-center text-red-600">Error fetching data: {error}</p>;
+  if (error) return <p className="text-center text-red-600 py-6">{`You are a doctor. That's why you have no booking`}</p>;
 
   return (
     <div className="max-w-[600px] w-full mx-auto mt-8 px-5">
       {bookings.length > 0 ? (
         <>
-          <h3 className="py-3 mb-3 border-b border-gray-400 text-2xl font-semibold text-center">
+          <h2 className="py-3 mb-3 border-b border-gray-400 text-xl lg:2xl font-semibold text-center">
             Booking List
-          </h3>
+          </h2>
           {bookings.map((item) => (
             <Card className="mb-4" key={item.id}>
-              <div className="p-4 mb-4">
+              <div className="p-4 pb-0 mb-4 flex flex-col gap-3">
                 <h3>
                   <b>Patient Name:</b> {`${item.patient_first_name} ${item.patient_last_name}`}
                 </h3>

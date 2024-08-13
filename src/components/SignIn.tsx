@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import axios from "axios";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import {
@@ -20,10 +21,10 @@ interface FormData {
   password: string;
 }
 
-const LoginForm = () => {
-  const {doctor, patient} = useUserContext()
-
+const LoginForm: React.FC = () => {
+  const { doctor, patient } = useUserContext();
   const router = useRouter();
+
   const [formData, setFormData] = useState<FormData>({
     username: "",
     password: "",
@@ -35,27 +36,31 @@ const LoginForm = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(formData);
     
-    const res = await fetch("https://vaccine-management-backend-7qp2.onrender.com/api/auth/login/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    }).then((data) => data.json());
-    
-    
-    if (res.token) {
-      window.localStorage.setItem("authToken", res.token);
-      toast.success("Login successfully");
-      if (doctor?.id || patient?.id) {
-        router.push("/");
+    try {
+      const res = await axios.post(
+        "https://vaccine-management-backend-7qp2.onrender.com/api/auth/login/",
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (res.data.token) {
+        window.localStorage.setItem("authToken", res.data.token);
+        toast.success("Login successfully");
+
+        if (doctor?.id || patient?.id) {
+          router.push("/");
+        } else {
+          router.push("/userType");
+        }
       } else {
-        router.push("/userType");
+        toast.error("Something Went Wrong");
       }
-      
-    } else {
+    } catch (error) {
       toast.error("Something Went Wrong");
     }
   };
@@ -66,36 +71,40 @@ const LoginForm = () => {
         <CardHeader>
           <CardTitle className="text-center">Login</CardTitle>
           <CardContent>
-          <form onSubmit={handleSubmit}>
-            <div className="pb-5 flex flex-col gap-3">
-              <Label className="">Username:</Label>
-              <Input  type="text"
-                name="username"
-                value={formData.username}
-                onChange={handleChange}
-                required 
-                placeholder="Username" 
-              />
-          </div>
-            <div className="pb-5 flex flex-col gap-3">
-              <Label className="">Password:</Label>
-              <Input  type="text"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                required 
-                placeholder="Password" 
-              />
-          </div>
-          <Button type="submit">Login</Button>
-          </form>
+            <form onSubmit={handleSubmit}>
+              <div className="pb-5 flex flex-col gap-3">
+                <Label>Username:</Label>
+                <Input
+                  type="text"
+                  name="username"
+                  value={formData.username}
+                  onChange={handleChange}
+                  required
+                  placeholder="Username"
+                />
+              </div>
+              <div className="pb-5 flex flex-col gap-3">
+                <Label>Password:</Label>
+                <Input
+                  type="password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  required
+                  placeholder="Password"
+                />
+              </div>
+              <div className="flex items-center justify-end">
+                <Button type="submit">Login</Button>
+              </div>
+            </form>
           </CardContent>
         </CardHeader>
         <CardFooter>
-        <p className='mr-2'>Account not created yet</p> 
+          <p className="mr-2">Account not created yet</p>
           <Button asChild>
-              <Link href="/signUp">Sign Up</Link>
-            </Button>
+            <Link href="/signUp">Sign Up</Link>
+          </Button>
         </CardFooter>
       </Card>
     </div>

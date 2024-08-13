@@ -151,8 +151,8 @@ const CreateBooking: React.FC = () => {
   if (error) return <p className="text-center text-red-600">Error fetching data: {error}</p>;
 
   return (
-    <div className='max-w-[1200px] w-full mx-auto my-[80px] px-5' id="bookings">
-      <h2 className="text-3xl font-bold my-6 text-center">Booking your campaign</h2>
+    <div className='max-w-[1200px] w-full mx-auto my-20 lg:my-10 px-5' id="bookings">
+      <h2 className="lg:text-3xl text-2xl font-bold my-6">Booking your campaign</h2>
       <Card>
         <CardHeader>
           <CardTitle>Booking</CardTitle>
@@ -202,7 +202,9 @@ const CreateBooking: React.FC = () => {
                   required
                 />
               </div>
-              <Button type="submit">Booking</Button>
+              <div className="flex items-center justify-end">
+                <Button type="submit">Booking</Button>
+              </div>
             </form>
         
       </Card>

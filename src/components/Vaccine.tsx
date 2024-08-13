@@ -237,17 +237,17 @@ const Vaccines: React.FC = () => {
         </AlertDialog>
       </div>
 
-      <Card>
+      <Card className="w-full overflow-auto">
         <table className="min-w-full divide-y divide-gray-200">
           <thead>
             <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="pl-10 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Name
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Schedule
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="pr-20 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Actions
               </th>
             </tr>
@@ -255,11 +255,11 @@ const Vaccines: React.FC = () => {
           <tbody className="bg-white divide-y divide-gray-200">
             {vaccines.map((vaccine) => (
               <tr key={vaccine.id}>
-                <td className="px-6 py-4 whitespace-nowrap">{vaccine.name}</td>
-                <td className="px-6 py-4 whitespace-nowrap">
+                <td className="px-6 text-left py-4 whitespace-nowrap">{vaccine.name}</td>
+                <td className="px-6 text-center py-4 whitespace-nowrap">
                   {vaccine.schedule}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap">
+                <td className="px-6 text-right py-4 whitespace-nowrap">
                   <AlertDialog>
                     <AlertDialogTrigger asChild>
                       <Button onClick={() => handleUpdateVaccine(vaccine)}>

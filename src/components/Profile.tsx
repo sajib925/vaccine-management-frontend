@@ -2,7 +2,7 @@
 import React, {  useState, } from 'react';
 import axios from 'axios';
 import { toast } from 'sonner';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './ui/card';
+import { Card, CardDescription, CardFooter, CardHeader } from './ui/card';
 import { Label } from './ui/label';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
@@ -13,7 +13,6 @@ import {
   AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger
 } from "@/components/ui/alert-dialog";
 import { useUserContext } from '@/context/userContext';
-// import Bookings from './Booking';
 
 
 
@@ -84,8 +83,8 @@ const UserProfile: React.FC = () => {
 
 
   return (
-    <div className="max-w-[600px] w-full mx-auto mt-20 px-5">
-      <h3 className='py-3 mb-5 text-3xl font-bold text-center'>Hello {name}! Welcome to your Profile</h3>
+    <div className="max-w-[600px] w-full mx-auto mt-10 lg:mt-20 px-5">
+      <h3 className='py-3 mb-5 text-2xl lg:text-3xl font-bold text-center'>Hello {name}! Welcome to your Profile</h3>
       <Card>
         <div className="relative h-[150px] w-full rounded-t-sm bg-primary">
           <Image
@@ -96,11 +95,11 @@ const UserProfile: React.FC = () => {
               height={250}
           />
         </div>
-        <CardHeader className="px-0 pb-0 pt-20 text-center text-2xl font-bold">{name}</CardHeader>
-        <CardHeader className="px-0 pb-0 pt-3 text-center text-2xl font-bold">{userData.email}</CardHeader>
-        <CardDescription className="pt-2 text-center text-2xl font-semibold">{patient?.id && "Patient"}</CardDescription>
-        <CardDescription className="pt-2 text-center text-2xl font-semibold">{doctor?.id && "Doctor"}</CardDescription>
-        <CardFooter className="flex items-center justify-center gap-4 pt-4">
+        <CardHeader className="px-0 pb-0 pt-20 text-center text-xl lg:text-2xl font-bold">{name}</CardHeader>
+        <CardHeader className="px-0 pb-0 pt-3 text-center text-xl lg:text-2xl font-bold">{userData.email}</CardHeader>
+        <CardDescription className="pt-2 text-center text-xl lg:text-2xl font-semibold">{patient?.id && "Patient"}</CardDescription>
+        <CardDescription className="pt-2 text-center text-xl lg:text-2xl font-semibold">{doctor?.id && "Doctor"}</CardDescription>
+        <CardFooter className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4">
           <AlertDialog>
             <AlertDialogTrigger className='py-2 px-4 font-semibold rounded-sm bg-slate-900 border border-slate-900 text-white hover:text-slate-900 hover:bg-white transition-all ease-in-out'>Update Profile</AlertDialogTrigger>
             <AlertDialogContent>
@@ -139,7 +138,10 @@ const UserProfile: React.FC = () => {
                       onChange={handleChange}
                   />
                 </div>
-                <Button type="submit">Update Profile</Button>
+                <div className="flex items-center justify-end">
+                  <Button type="submit">Update Profile</Button>
+
+                </div>
               </form>
               <AlertDialogFooter>
                 <AlertDialogCancel>Cancel</AlertDialogCancel>
@@ -189,7 +191,11 @@ const UserProfile: React.FC = () => {
                       required
                   />
                 </div>
-                <Button type="submit">Update Password</Button>
+                
+                <div className="flex items-center justify-end">
+                  <Button type="submit">Update Password</Button>
+                </div>
+                
               </form>
               <AlertDialogFooter>
                 <AlertDialogCancel>Cancel</AlertDialogCancel>

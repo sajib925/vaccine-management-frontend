@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { useUserContext } from "@/context/userContext";
 import axios from "axios";
+import Image from "next/image";
 
 
 
@@ -154,9 +155,7 @@ const Navbar = () => {
           href="/"
           className="flex items-center space-x-3 rtl:space-x-reverse"
         >
-          <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-            Vaccine System
-          </span>
+          <Image src={"/image/logo.webp"} width={50} height={30} alt="logo" />
         </Link>
         <button
           onClick={toggleMobileMenu}
@@ -187,7 +186,7 @@ const Navbar = () => {
             <li>
               <Link
                 href="/"
-                className="block py-2 px-3 text-white bg-blue-700 rounded lg:bg-transparent lg:text-blue-700 lg:p-0 dark:text-white lg:dark:text-blue-500"
+                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 lg:hover:bg-transparent lg:border-0 lg:hover:text-blue-700 lg:p-0 dark:text-white lg:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent"
                 aria-current="page"
               >
                 Home
@@ -199,7 +198,7 @@ const Navbar = () => {
              <li>
               <Link
                 href="vaccine"
-                className="block py-2 px-3 text-white bg-blue-700 rounded lg:bg-transparent lg:text-blue-700 lg:p-0 dark:text-white lg:dark:text-blue-500"
+                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 lg:hover:bg-transparent lg:border-0 lg:hover:text-blue-700 lg:p-0 dark:text-white lg:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent"
                 aria-current="page"
               >
                 Vaccines

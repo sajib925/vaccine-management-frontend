@@ -66,7 +66,7 @@ const FaqAccordion: React.FC = () => {
   return (
     <div className="relative font-inter antialiased">
       <div className="relative flex flex-col justify-center bg-slate-50 overflow-hidden">
-        <div className="max-w-[1200px] w-full mx-auto px-4 md:px-6 py-24">
+        <div className="max-w-screen-xl w-full mx-auto px-4 md:px-6 py-10 lg:py-20">
           <h1 className="text-2xl font-bold text-slate-900 mb-4">FAQs</h1>
           <div className="divide-y divide-slate-200">
             {panels.map((panel) => (

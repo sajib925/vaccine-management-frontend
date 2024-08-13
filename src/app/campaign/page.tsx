@@ -1,16 +1,15 @@
 import React from 'react'
 import Campaigns from '@/components/Campaign'
 import Footer from '@/components/footer'
-import Hero from '@/components/Hero'
 import Navbar from '@/components/Navbar'
-import Vaccines from '@/components/Vaccine'
+import HeroAll from '@/components/HeroAll'
 
 const Campaign = () => {
   return (
     <>
     <Navbar />
     <main>
-      <Hero />
+      <HeroAll />
       <Campaigns />
     </main>
     <Footer />

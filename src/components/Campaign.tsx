@@ -162,15 +162,15 @@ const Campaigns: React.FC = () => {
   if (loading) return <p className="text-center text-green-800">Loading...</p>;
 
   return (
-    <div id="campaign" className="max-w-[1200px] w-full mx-auto my-[80px] px-5">
-      <h2 className="scroll-m-20 pb-2 text-3xl font-bold tracking-tight first:mt-0 text-center">
+    <div id="campaign" className="max-w-[1200px] w-full mx-auto my-10 lg:my-20 px-5">
+      <h2 className="scroll-m-20 pb-4 lg:pb-6 text-3xl font-bold">
         All Campaigns
       </h2>
       {/* Show Campaigns */}
 
-      <div className="flex items-center gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {campaigns.map((item) => (
-          <div key={item.id} className="lg:w-[50%] w-full">
+          <div key={item.id} className="">
             <Card>
               <CardHeader>
                 <CardTitle>{item.name}</CardTitle>
@@ -184,7 +184,7 @@ const Campaigns: React.FC = () => {
       {/* Create Review */}
 
       <div className="flex items-center justify-between pb-4 border-b my-6">
-        <h2 className="text-3xl font-bold ">All Reviews</h2>
+        <h2 className="scroll-m-20 pb-4 lg:pb-6 text-3xl font-bold">All Reviews</h2>
         <AlertDialog>
           <AlertDialogTrigger asChild>
             <Button>Review</Button>
@@ -231,8 +231,22 @@ const Campaigns: React.FC = () => {
 
 
       <Swiper
-        slidesPerView={3}
-        spaceBetween={30}
+        // slidesPerView={3}
+        // spaceBetween={30}
+        breakpoints={{
+          640: {
+            slidesPerView: 1,
+            spaceBetween: 10,
+          },
+          768: {
+            slidesPerView: 2,
+            spaceBetween: 20,
+          },
+          1024: {
+            slidesPerView: 3,
+            spaceBetween: 30,
+          },
+        }}
         pagination={{
           clickable: true,
         }}
@@ -285,12 +299,6 @@ const Campaigns: React.FC = () => {
           </SwiperSlide>
         ))}
       </Swiper>
-   
-
-
-
-
-
     </div>
   );
 };

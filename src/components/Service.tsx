@@ -36,10 +36,10 @@ export const Service = () => {
     fetchVaccines();
   }, []);
   return (
-    <div className="py-20">
+    <div className="py-10 lg:py-20">
       <div className="mx-auto w-full max-w-screen-xl">
-        <h2 className="text-2xl font-semibold pb-8">Our Services</h2>
-        <div className="grid grid-cols-3 gap-6">
+        <h2 className="text-2xl font-semibold pb-8 px-5">Our Services</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {vaccines.map((item, idx) => (
             <div className="max-w-sm rounded overflow-hidden shadow-lg mx-auto" key={idx}>
               {/* <img

@@ -6,7 +6,7 @@ const HeroAll = () => {
     <div className="mx-auto w-full max-w-screen-xl">
       <div className="relative w-full">
         <Image
-          src="/image/v.jpg"
+          src="/image/test.jpg"
           alt="banner image"
           width={1200}
           height={400}

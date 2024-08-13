@@ -129,7 +129,10 @@ const RegisterForm = () => {
                   placeholder="Confirm Password"
                 />
               </div>
-              <Button type="submit">Register</Button>
+              <div className="flex items-center justify-end">
+                <Button type="submit">Register</Button>
+              </div>
+             
             </form>
           </CardContent>
         </CardHeader>
