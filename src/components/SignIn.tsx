@@ -64,7 +64,7 @@ const LoginForm = () => {
     <div className="max-w-[600px] w-full mx-auto mt-20 px-5">
       <Card>
         <CardHeader>
-          <CardTitle className="text-center">Register</CardTitle>
+          <CardTitle className="text-center">Login</CardTitle>
           <CardContent>
           <form onSubmit={handleSubmit}>
             <div className="pb-5 flex flex-col gap-3">
