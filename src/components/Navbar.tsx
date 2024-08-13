@@ -56,7 +56,7 @@ const Navbar = () => {
   
       const fetchUserData = async () => {
         try {
-          const response = await axios.get<UserData>('https://vaccine-management-backend-7qp2.onrender.com/auth/profile/', {
+          const response = await axios.get<UserData>('https://vaccine-management-backend-7qp2.onrender.com/api/auth/profile/', {
             headers: {
               Authorization: `Token ${token}`,
             },
