@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useUserContext } from "@/context/userContext";
 
 function Hero() {
-  const { patient, doctor } = useUserContext();
+  const { patient, doctor, userData } = useUserContext();
   const [authToken, setAuthToken] = useState<string>("");
 
   useEffect(() => {
@@ -44,12 +44,15 @@ function Hero() {
               </Button>
             </div>
           )}
+          {
+            userData.id ?
+              (!patient?.id && !doctor?.id) && (
+                <Button asChild className="mt-4">
+                  <Link href="/userType">Be a Doctor or Patient</Link>
+                </Button>
+              ): ""
+          }
           
-          {(!patient?.id && !doctor?.id) && (
-            <Button asChild className="mt-4">
-              <Link href="/userType">Be a Doctor or Patient</Link>
-            </Button>
-          )}
         </div>
       </div>
     </div>
