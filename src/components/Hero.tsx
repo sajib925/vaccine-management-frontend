@@ -1,7 +1,6 @@
 "use client";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import { Button } from "./ui/button";
 import Link from "next/link";
 import { useUserContext } from "@/context/userContext";
 
@@ -35,21 +34,15 @@ function Hero() {
             {`Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.`}
           </p>
           {!authToken && (
-            <div className="flex items-center gap-x-3 mt-4">
-              <Button asChild>
-                <Link href="/signIn">Login</Link>
-              </Button>
-              <Button asChild>
-                <Link href="/signUp">Sign Up</Link>
-              </Button>
+            <div className="flex items-center flex-wrap gap-x-3 mt-4">
+              <Link href={"/signIn"} className="py-2 w-full md:w-auto md:px-8 font-semibold rounded-sm bg-slate-900 border border-slate-900 text-white hover:text-slate-900 hover:bg-white transition-all ease-in-out cursor-pointer">Sign In</Link>
+              <Link href={"/signUp"} className="py-2 w-full md:w-auto md:px-8 font-semibold rounded-sm bg-slate-900 border border-slate-900 text-white hover:text-slate-900 hover:bg-white transition-all ease-in-out cursor-pointer">Sign Up</Link>
             </div>
           )}
           {
             userData.id ?
               (!patient?.id && !doctor?.id) && (
-                <Button asChild className="mt-4">
-                  <Link href="/userType">Be a Doctor or Patient</Link>
-                </Button>
+                  <Link href="/userType" className="py-2 w-full md:w-auto md:px-8 font-semibold rounded-sm bg-slate-900 border border-slate-900 text-white hover:text-slate-900 hover:bg-white transition-all ease-in-out cursor-pointer">Become a Doctor or Patient</Link>
               ): ""
           }
           

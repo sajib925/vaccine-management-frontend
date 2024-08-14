@@ -99,6 +99,7 @@ const deleteVaccineData = async (id: number) => {
 const Vaccines: React.FC = () => {
   const [vaccines, setVaccines] = useState<Vaccine[]>([]);
   const [modalClose, setModalClose] = useState(false)
+  const [modalCloseAdd, setModalCloseAdd] = useState(false)
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [formVaccine, setFormVaccine] = useState<VaccineData>({
@@ -151,7 +152,7 @@ const Vaccines: React.FC = () => {
     try {
       const response = await postVaccineData(formVaccine);
       setVaccines([...vaccines, response]);
-      setModalClose(false)
+      setModalCloseAdd(false)
       toast.success("Vaccine created successfully");
     } catch (error) {
         toast.error("You are not doctor! So, you can not create and update vaccine");
@@ -205,7 +206,7 @@ const Vaccines: React.FC = () => {
         <h2 className="scroll-m-20 pb-2 text-3xl font-bold tracking-tight first:mt-0">
             All Vaccines
         </h2>
-        <AlertDialog onOpenChange={setModalClose} open={modalClose}>
+        <AlertDialog onOpenChange={setModalCloseAdd} open={modalCloseAdd}>
           <AlertDialogTrigger asChild>
             <Button>Add Vaccine</Button>
             
@@ -213,28 +214,28 @@ const Vaccines: React.FC = () => {
           <AlertDialogOverlay />
           <AlertDialogContent>
             <form onSubmit={handleSubmitVaccine}>
-              <div className="pb-5">
-                <Label className="mb-3">Add Vaccine:</Label>
-                <Input
-                  name="name"
-                  onChange={handleChangeVaccine}
-                  required
-                  placeholder="Vaccine Name"
-                />
+              <div className="pb-5 flex flex-col gap-3">
+                  <Label className="">Add Vaccine:</Label>
+                  <Input
+                    name="name"
+                    onChange={handleChangeVaccine}
+                    required
+                    placeholder="Vaccine Name"
+                  />
                 </div>
-                <div className="pb-5">
-                <Label className="mb-3">Add Schedule:</Label>
-                <Input
-                  name="schedule"
-                  onChange={handleChangeVaccine}
-                  required
-                  placeholder="Vaccine Schedule"
-                />
+                <div className="pb-5 flex flex-col gap-3">
+                  <Label className="">Add Schedule:</Label>
+                  <Input
+                    name="schedule"
+                    onChange={handleChangeVaccine}
+                    required
+                    placeholder="2024-09-03"
+                  />
               </div>
-              <Button type="submit">Add</Button>
+              <Button type="submit" className="w-full">Add</Button>
             </form>
             <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogCancel className="w-full">Cancel</AlertDialogCancel>
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
@@ -272,8 +273,8 @@ const Vaccines: React.FC = () => {
                     <AlertDialogOverlay />
                     <AlertDialogContent>
                       <form onSubmit={handleSubmitUpdateVaccine}>
-                        <div className="pb-5">
-                          <Label className="pb-4">Update Vaccine:</Label>
+                        <div className="pb-5 flex flex-col gap-3">
+                          <Label className="">Update Vaccine:</Label>
                           <Input
                             name="name"
                             value={formVaccine.name}
@@ -281,20 +282,23 @@ const Vaccines: React.FC = () => {
                             required
                             placeholder="Vaccine Name"
                           />
-                          <Label className="pb-4">Update Schedule:</Label>
+                        </div>
+                        <div className="pb-5 flex flex-col gap-3">
+                        <Label className="">Update Schedule:</Label>
                           <Input
                             name="schedule"
                             value={formVaccine.schedule}
                             onChange={handleChangeVaccine}
                             required
-                            placeholder="Vaccine Schedule"
+                            placeholder="2024-09-03"
                           />
                         </div>
-                        <Button type="submit">Update</Button>
+                        <Button type="submit" className="w-full">Update</Button>
                       </form>
                       <AlertDialogFooter>
                         <AlertDialogCancel
                           onClick={() => setUpdatingVaccine(null)}
+                          className="w-full"
                         >
                           Cancel
                         </AlertDialogCancel>

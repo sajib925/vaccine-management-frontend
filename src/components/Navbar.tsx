@@ -154,7 +154,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-[#F8FAFC] border-gray-200 dark:bg-gray-900">
+    <nav className="bg-[#F8FAFC] border-gray-200 dark:bg-gray-900 w-full sticky top-0 left-0 z-50 border-b ">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <Link
           href="/"
@@ -241,31 +241,18 @@ const Navbar = () => {
             </li>
             
             
-                {/* <Button asChild className="cursor-pointer mb-2 lg:mb-0">
-                  <Link href="/signIn" className="cursor-pointer">Login</Link>
-                </Button>
-                <Button asChild className="cursor-pointer">
-                  <Link href="/signUp" className="cursor-pointer">Sign Up</Link>
-                </Button> */}
-            
            
             {authToken ? (
               <>
-                <Button asChild className="cursor-pointer mb-2 lg:mb-0">
-                  <span onClick={handleLogout} className="cursor-pointer">Logout</span>
-                </Button>
-                <Button asChild className="cursor-pointer">
-                  <Link href="/profile" className="cursor-pointer">Profile</Link>
-                </Button>
+                
+                  <span onClick={handleLogout} className="cursor-pointer py-2 px-4 font-semibold rounded-sm bg-slate-900 border border-slate-900 text-white hover:text-slate-900 hover:bg-white transition-all ease-in-out">Logout</span>
+               
+            <Link href={"/profile"} className="py-2 px-4 font-semibold rounded-sm bg-slate-900 border border-slate-900 text-white hover:text-slate-900 hover:bg-white transition-all ease-in-out cursor-pointer">Profile</Link>
               </>
             ) : (
               <>
-                <Button asChild className="cursor-pointer mb-2 lg:mb-0">
-                  <Link href="/signIn" className="cursor-pointer">Login</Link>
-                </Button>
-                <Button asChild className="cursor-pointer">
-                  <Link href="/signUp" className="cursor-pointer">Sign Up</Link>
-                </Button>
+                <Link href={"/signIn"} className="py-2 px-4 font-semibold rounded-sm bg-slate-900 border border-slate-900 text-white hover:text-slate-900 hover:bg-white transition-all ease-in-out cursor-pointer">Sign In</Link>
+                <Link href={"/signUp"} className="py-2 px-4 font-semibold rounded-sm bg-slate-900 border border-slate-900 text-white hover:text-slate-900 hover:bg-white transition-all ease-in-out cursor-pointer">Sign Up</Link>
               </>
             )}
           </ul>

@@ -82,8 +82,8 @@ const LoginForm: React.FC = () => {
 
   return (
     <div className="max-w-screen-xl w-full mx-auto my-10 lg:my-20 px-5">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Image src={"/image/login.svg"} width={600} height={500} alt="login" />
+      <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-y-4 gap-x-20">
+        <Image src={"/image/login.svg"} width={400} height={300} alt="login" />
         <Card>
           <CardHeader>
             <CardTitle className="text-center">Login</CardTitle>
@@ -113,7 +113,7 @@ const LoginForm: React.FC = () => {
           </CardHeader>
           <CardFooter className="flex items-center justify-center gap-2">
             <p className="">{`Don't have an account?`}</p>
-            <Link href="/signUp" className="text-blue-900 font-semibold hover:underline hover:text-black transition-all ease-in-out">Register Now</Link>
+            <Link href="/signUp" className="text-blue-900 font-semibold hover:underline hover:text-black transition-all ease-in-out cursor-pointer">Register Now</Link>
           </CardFooter>
         </Card>
       </div>

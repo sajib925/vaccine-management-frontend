@@ -151,15 +151,15 @@ const CreateBooking: React.FC = () => {
   if (error) return <p className="text-center text-red-600">Error fetching data: {error}</p>;
 
   return (
-    <div className='max-w-[1200px] w-full mx-auto my-20 lg:my-10 px-5' id="bookings">
-      <h2 className="lg:text-3xl text-2xl font-bold my-6">Booking your campaign</h2>
+    <div className='max-w-screen-xl w-full mx-auto my-10 lg:my-20 px-5' id="bookings">
+      <h2 className="lg:text-3xl text-2xl font-bold mb-4 lg:mb-6">Booking your campaign</h2>
       <Card>
         <CardHeader>
           <CardTitle>Booking</CardTitle>
         </CardHeader>
             <form onSubmit={handleSubmit} className='p-4'>
-              <div className="pb-5">
-                <Label className="pb-4">Campaign Name:</Label>
+              <div className="pb-5 flex flex-col gap-3">
+                <Label className="">Campaign Name:</Label>
                 <select
                   name="campaign_name"
                   value={formData.campaign_name}
@@ -175,8 +175,8 @@ const CreateBooking: React.FC = () => {
                   ))}
                 </select>
               </div>
-              <div className="pb-5">
-                <Label className="mb-3">Vaccine Name:</Label>
+              <div className="pb-5 flex flex-col gap-3">
+                <Label className="">Vaccine Name:</Label>
                 <select
                   name="vaccine_name"
                   value={formData.vaccine_name}
@@ -192,8 +192,8 @@ const CreateBooking: React.FC = () => {
                   ))}
                 </select>
               </div>
-              <div className="pb-5">
-                <Label className="mb-3">First Dose Date:</Label>
+              <div className="pb-5 flex flex-col gap-3">
+                <Label className="">First Dose Date:</Label>
                 <Input
                   type="date"
                   name="first_dose_date"
@@ -203,7 +203,7 @@ const CreateBooking: React.FC = () => {
                 />
               </div>
               <div className="flex items-center justify-end">
-                <Button type="submit">Booking</Button>
+                <button type="submit" className='py-2 px-6 font-semibold rounded-sm bg-slate-900 border border-slate-900 text-white hover:text-slate-900 hover:bg-white transition-all ease-in-out cursor-pointer'>Booking</button>
               </div>
             </form>
         

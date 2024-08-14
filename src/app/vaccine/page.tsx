@@ -9,7 +9,7 @@ const Vaccine = () => {
     <>
     <Navbar />
     <main>
-      <HeroAll />
+      <HeroAll title='Get Protected: Essential Vaccinations for a Healthier Tomorrow' desc={`Have questions or need support? Reach out to our dedicated team for assistance with your inquiries, feedback, or service needs. We're always ready to help.`} />
       <Vaccines />
     </main>
     <Footer />
