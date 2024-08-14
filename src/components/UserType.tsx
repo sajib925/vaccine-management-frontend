@@ -4,10 +4,14 @@ import { Button } from "./ui/button";
 import Link from "next/link";
 import { Patient } from "./Patient";
 import { Doctor } from "./Doctor";
+import Image from "next/image";
 
 export const UserType = () => {
   return (
-    <div className="max-w-[600px] w-full mx-auto mt-10 px-5">
+    <div className="max-w-screen-xl h-screen w-full mx-auto my-10 lg:my-20 px-5">
+      <div className="grid items-center grid-cols-1 lg:grid-cols-2 gap-6">
+        <Image src={"/image/users.jpg"} width={600} height={500} alt="login" />
+    <div className="">
       <h1 className="text-2xl font-semibold pb-3">What type of account do you need?</h1>
       <Tabs defaultValue="patient" className="w-full">
         <TabsList className="flex items-center justify-center">
@@ -24,6 +28,8 @@ export const UserType = () => {
           <Link href={"/"} className="w-full">Skip</Link>
         </Button>
       </Tabs>
+    </div>
+    </div>
     </div>
   );
 };

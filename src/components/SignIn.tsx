@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useForm } from "react-hook-form";
 import axios from "axios";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
@@ -15,6 +15,10 @@ import { Label } from "@radix-ui/react-label";
 import { Button } from "./ui/button";
 import Link from "next/link";
 import { useUserContext } from "@/context/userContext";
+import Image from "next/image";
+
+import { useMutation } from "react-query";
+import { fetchDoctorsData, fetchPatientsData, fetchUserData } from "@/logic/apiService";
 
 interface FormData {
   username: string;
@@ -22,91 +26,95 @@ interface FormData {
 }
 
 const LoginForm: React.FC = () => {
-  const { doctor, patient } = useUserContext();
+  const { setUserData, setPatient, setDoctor } = useUserContext();
   const router = useRouter();
 
-  const [formData, setFormData] = useState<FormData>({
-    username: "",
-    password: "",
-  });
+  const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  const loginMutation = useMutation(
+    async (formData: FormData) => {
+      const res = await axios.post('https://vaccine-management-backend-7qp2.onrender.com/api/auth/login/', formData, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      return res.data.token;
+    },
+    {
+      onSuccess: async (token) => {
+        window.localStorage.setItem('authToken', token);
+        toast.success('Login successfully');
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    try {
-      const res = await axios.post(
-        "https://vaccine-management-backend-7qp2.onrender.com/api/auth/login/",
-        formData,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
+        try {
+          const userData = await fetchUserData(token);
+          setUserData(userData);
+
+          const [patientsData, doctorsData] = await Promise.all([
+            fetchPatientsData(token),
+            fetchDoctorsData(token),
+          ]);
+
+          const patientData = patientsData.find(p => p.user === userData.id) ?? null;
+          const doctorData = doctorsData.find(d => d.user === userData.id) ?? null;
+          setPatient(patientData);
+          setDoctor(doctorData);
+
+          if (doctorData?.id || patientData?.id) {
+            router.push('/');
+          } else {
+            router.push('/userType');
+          }
+        } catch (error) {
+          toast.error('Failed to fetch user data');
         }
-      );
-
-      if (res.data.token) {
-        window.localStorage.setItem("authToken", res.data.token);
-        toast.success("Login successfully");
-
-        if (doctor?.id || patient?.id) {
-          router.push("/");
-        } else {
-          router.push("/userType");
-        }
-      } else {
-        toast.error("Something Went Wrong");
-      }
-    } catch (error) {
-      toast.error("Something Went Wrong");
+      },
+      onError: () => {
+        toast.error('Something went wrong');
+      },
     }
+  );
+
+  const onSubmit = (formData: FormData) => {
+    loginMutation.mutate(formData);
   };
 
   return (
-    <div className="max-w-[600px] w-full mx-auto mt-20 px-5">
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-center">Login</CardTitle>
-          <CardContent>
-            <form onSubmit={handleSubmit}>
-              <div className="pb-5 flex flex-col gap-3">
-                <Label>Username:</Label>
-                <Input
-                  type="text"
-                  name="username"
-                  value={formData.username}
-                  onChange={handleChange}
-                  required
-                  placeholder="Username"
-                />
-              </div>
-              <div className="pb-5 flex flex-col gap-3">
-                <Label>Password:</Label>
-                <Input
-                  type="password"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  required
-                  placeholder="Password"
-                />
-              </div>
-              <div className="flex items-center justify-end">
-                <Button type="submit">Login</Button>
-              </div>
-            </form>
-          </CardContent>
-        </CardHeader>
-        <CardFooter>
-          <p className="mr-2">Account not created yet</p>
-          <Button asChild>
-            <Link href="/signUp">Sign Up</Link>
-          </Button>
-        </CardFooter>
-      </Card>
+    <div className="max-w-screen-xl w-full mx-auto my-10 lg:my-20 px-5">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <Image src={"/image/login.svg"} width={600} height={500} alt="login" />
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-center">Login</CardTitle>
+            <CardContent>
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <div className="pb-5 flex flex-col gap-3">
+                  <Label>Username:</Label>
+                  <Input
+                    type="text"
+                    {...register("username", { required: "Username is required" })}
+                    placeholder="Username"
+                  />
+                  {errors.username && <p className="text-red-500">{errors.username.message}</p>}
+                </div>
+                <div className="pb-5 flex flex-col gap-3">
+                  <Label>Password:</Label>
+                  <Input
+                    type="password"
+                    {...register("password", { required: "Password is required" })}
+                    placeholder="Password"
+                  />
+                  {errors.password && <p className="text-red-500">{errors.password.message}</p>}
+                </div>
+                <Button type="submit" className="w-full">Login</Button>
+              </form>
+            </CardContent>
+          </CardHeader>
+          <CardFooter className="flex items-center justify-center gap-2">
+            <p className="">{`Don't have an account?`}</p>
+            <Link href="/signUp" className="text-blue-900 font-semibold hover:underline hover:text-black transition-all ease-in-out">Register Now</Link>
+          </CardFooter>
+        </Card>
+      </div>
     </div>
   );
 };

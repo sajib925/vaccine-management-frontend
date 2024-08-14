@@ -3,8 +3,9 @@ import { Ubuntu } from "next/font/google";
 import "./globals.css";
 import { UserProvider } from "@/context/userContext";
 import { Toaster } from "sonner";
+import ClientProvider from "./ClientProvider";
 
-const inter = Ubuntu({ subsets: ["latin"],weight: ["400", "500", "700"], });
+const inter = Ubuntu({ subsets: ["latin"], weight: ["400", "500", "700"] });
 
 export const metadata: Metadata = {
   title: "Vaccine Management",
@@ -20,7 +21,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <UserProvider>
-          {children}
+          <ClientProvider>{children}</ClientProvider>
         </UserProvider>
         <Toaster richColors />
       </body>

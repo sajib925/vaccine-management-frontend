@@ -52,70 +52,70 @@ const Navbar = () => {
   
     
   
-    useEffect(() => {
-      const token = localStorage.getItem("authToken");
+    // useEffect(() => {
+    //   const token = localStorage.getItem("authToken");
   
-      const fetchUserData = async () => {
-        try {
-          const response = await axios.get<UserData>('https://vaccine-management-backend-7qp2.onrender.com/api/auth/profile/', {
-            headers: {
-              Authorization: `Token ${token}`,
-            },
-          });
-          setUserData(response.data);
-        } catch (error) {
-          setError('Error fetching user data');
-        } finally {
-          setLoading(false);
-        }
-      };
+    //   const fetchUserData = async () => {
+    //     try {
+    //       const response = await axios.get<UserData>('https://vaccine-management-backend-7qp2.onrender.com/api/auth/profile/', {
+    //         headers: {
+    //           Authorization: `Token ${token}`,
+    //         },
+    //       });
+    //       setUserData(response.data);
+    //     } catch (error) {
+    //       setError('Error fetching user data');
+    //     } finally {
+    //       setLoading(false);
+    //     }
+    //   };
   
-      const fetchPatientsData = async () => {
-        try {
-          const response = await axios.get<Patient[]>('https://vaccine-management-backend-7qp2.onrender.com/api/auth/patient/', {
-            headers: {
-              Authorization: `Token ${token}`,
-            },
-          });
-          setAllPatient(response.data);
-        } catch (error) {
-          setError('Error fetching patient data');
-        } finally {
-          setLoading(false);
-        }
-      };
+    //   const fetchPatientsData = async () => {
+    //     try {
+    //       const response = await axios.get<Patient[]>('https://vaccine-management-backend-7qp2.onrender.com/api/auth/patient/', {
+    //         headers: {
+    //           Authorization: `Token ${token}`,
+    //         },
+    //       });
+    //       setAllPatient(response.data);
+    //     } catch (error) {
+    //       setError('Error fetching patient data');
+    //     } finally {
+    //       setLoading(false);
+    //     }
+    //   };
   
-      const fetchDoctorsData = async () => {
-        try {
-          const response = await axios.get<Doctor[]>('https://vaccine-management-backend-7qp2.onrender.com/api/auth/doctor/', {
-            headers: {
-              Authorization: `Token ${token}`,
-            },
-          });
-          setAllDoctor(response.data);
-        } catch (error) {
-          setError('Error fetching doctor data');
-        } finally {
-          setLoading(false);
-        }
-      };
+    //   const fetchDoctorsData = async () => {
+    //     try {
+    //       const response = await axios.get<Doctor[]>('https://vaccine-management-backend-7qp2.onrender.com/api/auth/doctor/', {
+    //         headers: {
+    //           Authorization: `Token ${token}`,
+    //         },
+    //       });
+    //       setAllDoctor(response.data);
+    //     } catch (error) {
+    //       setError('Error fetching doctor data');
+    //     } finally {
+    //       setLoading(false);
+    //     }
+    //   };
   
-      fetchDoctorsData();
-      fetchPatientsData();
-      fetchUserData();
-    }, []);
+    //   fetchDoctorsData();
+    //   fetchPatientsData();
+    //   fetchUserData();
+    // }, []);
   
-    useEffect(() => {
-      if (allPatient.length > 0) {
+    // useEffect(() => {
+    //   if (allPatient.length > 0) {
           
-        const patientData = allPatient.find(item => item.user === userData.id) ?? null;
-        setPatient(patientData);
-      }
-      if (allDoctor.length > 0) {
-        const doctorData = allDoctor.find(item => item.user === userData.id) ?? null;
-        setDoctor(doctorData);
-      }
-    }, [allPatient, allDoctor, userData.id, setPatient, setDoctor]);
+    //     const patientData = allPatient.find(item => item.user === userData.id) ?? null;
+    //     setPatient(patientData);
+    //   }
+    //   if (allDoctor.length > 0) {
+    //     const doctorData = allDoctor.find(item => item.user === userData.id) ?? null;
+    //     setDoctor(doctorData);
+    //   }
+    // }, [allPatient, allDoctor, userData.id, setPatient, setDoctor]);
   
     
     const handleLogout = async () => {

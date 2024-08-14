@@ -83,7 +83,7 @@ const UserProfile: React.FC = () => {
 
 
   return (
-    <div className="max-w-[600px] w-full mx-auto mt-10 lg:mt-20 px-5">
+    <div className="max-w-[600px] w-full mx-auto my-10 lg:my-20 px-5">
       <h3 className='py-3 mb-5 text-2xl lg:text-3xl font-bold text-center'>Hello {name}! Welcome to your Profile</h3>
       <Card>
         <div className="relative h-[150px] w-full rounded-t-sm bg-primary">
@@ -104,11 +104,11 @@ const UserProfile: React.FC = () => {
             <AlertDialogTrigger className='py-2 px-4 font-semibold rounded-sm bg-slate-900 border border-slate-900 text-white hover:text-slate-900 hover:bg-white transition-all ease-in-out'>Update Profile</AlertDialogTrigger>
             <AlertDialogContent>
               <AlertDialogHeader>
-                <AlertDialogTitle>Update Your Profile</AlertDialogTitle>
+                <AlertDialogTitle className="text-center">Update Your Profile</AlertDialogTitle>
               </AlertDialogHeader>
               <form onSubmit={handleSubmit}>
-                <div className="pb-5">
-                  <Label className="mb-4">Email:</Label>
+                <div className="pb-5 flex flex-col gap-3">
+                  <Label className="">Email:</Label>
                   <Input
                       type="email"
                       id="email"
@@ -118,8 +118,8 @@ const UserProfile: React.FC = () => {
                       required
                   />
                 </div>
-                <div className="pb-5">
-                  <Label className="mb-4">First Name:</Label>
+                <div className="pb-5 flex flex-col gap-3">
+                  <Label className="">First Name:</Label>
                   <Input
                       id="first_name"
                       name="first_name"
@@ -128,8 +128,8 @@ const UserProfile: React.FC = () => {
                       onChange={handleChange}
                   />
                 </div>
-                <div className="mb-4">
-                  <Label className="mb-4">Last Name:</Label>
+                <div className="pb-5 flex flex-col gap-3">
+                <Label className="">Last Name:</Label>
                   <Input
                       id="last_name"
                       name="last_name"
@@ -137,14 +137,11 @@ const UserProfile: React.FC = () => {
                       value={userData.last_name}
                       onChange={handleChange}
                   />
-                </div>
-                <div className="flex items-center justify-end">
-                  <Button type="submit">Update Profile</Button>
-
-                </div>
+              </div>
+                  <Button type="submit" className='w-full'>Update Profile</Button>
               </form>
               <AlertDialogFooter>
-                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogCancel className='w-full'>Cancel</AlertDialogCancel>
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
@@ -152,11 +149,11 @@ const UserProfile: React.FC = () => {
             <AlertDialogTrigger className='py-2 px-4 font-semibold rounded-sm bg-slate-900 border border-slate-900 text-white hover:text-slate-900 hover:bg-white transition-all ease-in-out'>Update Password</AlertDialogTrigger>
             <AlertDialogContent>
               <AlertDialogHeader>
-                <AlertDialogTitle>Update Your Password</AlertDialogTitle>
+                <AlertDialogTitle className='text-center'>Update Your Password</AlertDialogTitle>
               </AlertDialogHeader>
               <form onSubmit={updatePasswordSubmit}>
-                <div className="pb-5">
-                  <Label className="mb-4">New Password:</Label>
+                <div className="pb-5 flex flex-col gap-3">
+                  <Label className="">New Password:</Label>
                   <Input
                       type="password"
                       id="new_password"
@@ -167,8 +164,8 @@ const UserProfile: React.FC = () => {
                       required
                   />
                 </div>
-                <div className="pb-5">
-                  <Label className="mb-4">Confirm New Password:</Label>
+                <div className="pb-5 flex flex-col gap-3">
+                  <Label className="">Confirm New Password:</Label>
                   <Input
                       type="password"
                       id="confirm_password"
@@ -179,8 +176,8 @@ const UserProfile: React.FC = () => {
                       required
                   />
                 </div>
-                <div className="pb-5">
-                  <Label className="mb-4">Old Password:</Label>
+                <div className="pb-5 flex flex-col gap-3">
+                  <Label className="">Old Password:</Label>
                   <Input
                       type="password"
                       id="old_password"
@@ -191,14 +188,10 @@ const UserProfile: React.FC = () => {
                       required
                   />
                 </div>
-                
-                <div className="flex items-center justify-end">
-                  <Button type="submit">Update Password</Button>
-                </div>
-                
+                  <Button type="submit" className='w-full'>Update Password</Button>
               </form>
               <AlertDialogFooter>
-                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogCancel className='w-full'>Cancel</AlertDialogCancel>
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>

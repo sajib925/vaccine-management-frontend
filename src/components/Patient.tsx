@@ -126,7 +126,7 @@ export const Patient = () => {
                 />
               </div>
               <div className="flex justify-end">
-                <Button type="submit">Submit</Button>
+                <Button type="submit" className="w-full">Submit</Button>
               </div>
             </form>
           </CardContent>

@@ -14,6 +14,7 @@ import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import Link from "next/link";
+import Image from "next/image";
 
 interface FormData {
   username: string;
@@ -57,14 +58,16 @@ const RegisterForm = () => {
   };
 
   return (
-    <div className="max-w-[1000px] w-full mx-auto mt-20 px-5">
+    <div className="max-w-screen-xl w-full mx-auto my-10 lg:my-20 px-5">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
+      <Image src={"/image/signup.svg"} width={600} height={1200} alt="login" />
       <Card>
         <CardHeader>
           <CardTitle className="text-center">Register</CardTitle>
           <CardContent>
             <form onSubmit={handleSubmit}>
               <div className="pb-5 flex flex-col gap-4">
-                <Label className="mb-4">Username:</Label>
+                <Label className="">Username:</Label>
                 <Input
                   type="text"
                   name="username"
@@ -75,7 +78,7 @@ const RegisterForm = () => {
                 />
               </div>
               <div className="pb-5 flex flex-col gap-4">
-                <Label className="mb-4">First Name:</Label>
+                <Label className="">First Name:</Label>
                 <Input
                   type="text"
                   name="first_name"
@@ -86,7 +89,7 @@ const RegisterForm = () => {
                 />
               </div>
               <div className="pb-5 flex flex-col gap-4">
-                <Label className="mb-4">Last Name:</Label>
+                <Label className="">Last Name:</Label>
                 <Input
                   type="text"
                   name="last_name"
@@ -97,7 +100,7 @@ const RegisterForm = () => {
                 />
               </div>
               <div className="pb-5 flex flex-col gap-4">
-                <Label className="mb-4">Email:</Label>
+                <Label className="">Email:</Label>
                 <Input
                   type="email"
                   name="email"
@@ -108,7 +111,7 @@ const RegisterForm = () => {
                 />
               </div>
               <div className="pb-5 flex flex-col gap-4">
-                <Label className="mb-4">Password:</Label>
+                <Label className="">Password:</Label>
                 <Input
                   type="password"
                   name="password"
@@ -119,7 +122,7 @@ const RegisterForm = () => {
                 />
               </div>
               <div className="pb-5 flex flex-col gap-4">
-                <Label className="pb-4">Confirm Password:</Label>
+                <Label className="">Confirm Password:</Label>
                 <Input
                   type="password"
                   name="confirm_password"
@@ -130,19 +133,18 @@ const RegisterForm = () => {
                 />
               </div>
               <div className="flex items-center justify-end">
-                <Button type="submit">Register</Button>
+                <Button type="submit" className="w-full">Register</Button>
               </div>
              
             </form>
           </CardContent>
         </CardHeader>
-        <CardFooter>
-          <p className="mr-2">Already have an account</p>
-          <Button asChild>
-            <Link href="/signIn">Login</Link>
-          </Button>
+        <CardFooter className="flex items-center justify-center gap-2">
+          <p className="">{`Already have an account?`}</p>
+            <Link href="/signIn" className="text-blue-900 font-semibold hover:underline hover:text-black transition-all ease-in-out">Login Now</Link>
         </CardFooter>
       </Card>
+    </div>
     </div>
   );
 };

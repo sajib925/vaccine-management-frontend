@@ -53,10 +53,10 @@ const Bookings: React.FC = () => {
  
 
   if (loading) return <p className="text-center text-green-800">Loading...</p>;
-  if (error) return <p className="text-center text-red-600 py-6">{`You are a doctor. That's why you have no booking`}</p>;
+  if (error) return <Card className="max-w-[558px] w-full mx-auto p-2 mb-10 lg:mb-20 font-semibold"><p className="text-center text-orange-600">{`You are a doctor. That's why you have no booking`}</p></Card>;
 
   return (
-    <div className="max-w-[600px] w-full mx-auto mt-8 px-5">
+    <div className="max-w-[600px] w-full mx-auto mb-10 lg:mb-20 px-5">
       {bookings.length > 0 ? (
         <>
           <h2 className="py-3 mb-3 border-b border-gray-400 text-xl lg:2xl font-semibold text-center">
