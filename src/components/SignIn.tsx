@@ -18,7 +18,7 @@ import { useUserContext } from "@/context/userContext";
 import Image from "next/image";
 
 import { useMutation } from "react-query";
-import { fetchDoctorsData, fetchPatientsData, fetchUserData } from "@/logic/apiService";
+import { fetchDoctorsData, fetchPatientsData, fetchServiceData, fetchUserData } from "@/logic/apiService";
 
 interface FormData {
   username: string;
@@ -26,7 +26,7 @@ interface FormData {
 }
 
 const LoginForm: React.FC = () => {
-  const { setUserData, setPatient, setDoctor } = useUserContext();
+  const { setUserData, setPatient, setDoctor, setServices } = useUserContext();
   const router = useRouter();
 
   const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
@@ -58,6 +58,8 @@ const LoginForm: React.FC = () => {
           const doctorData = doctorsData.find(d => d.user === userData.id) ?? null;
           setPatient(patientData);
           setDoctor(doctorData);
+          const service = await fetchServiceData()
+          setServices(Array.isArray(service) ? service : [service]);
 
           if (doctorData?.id || patientData?.id) {
             router.push('/');

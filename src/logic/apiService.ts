@@ -22,7 +22,18 @@ export interface Doctor {
   mobile_no: string;
 }
 
+type VaccineService = {
+  id: number;
+  name: string;
+  description: string;
+  image: string;
+};
 const API_URL = 'https://vaccine-management-backend-7qp2.onrender.com/api';
+
+export const fetchServiceData = async () => {
+  const response = await axios.get<VaccineService>(`${API_URL}/service/`);
+  return response.data;
+};
 
 export const fetchUserData = async (token: string | null) => {
   const response = await axios.get<UserData>(`${API_URL}/auth/profile/`, {

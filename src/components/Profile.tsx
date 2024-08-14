@@ -26,6 +26,7 @@ interface UserPass {
 const UserProfile: React.FC = () => {
   
   const { patient, doctor, userData, setUserData } = useUserContext();
+  const [modalClose, setModalClose] = useState(false)
   const [passwordData, setPasswordData] = useState<UserPass>({
     new_password: '',
     confirm_password: '',
@@ -56,6 +57,7 @@ const UserProfile: React.FC = () => {
         },
       });
       toast.success('User data updated successfully');
+      setModalClose(false)
     } catch (error) {
       toast.error('Something went wrong');
     }
@@ -83,7 +85,7 @@ const UserProfile: React.FC = () => {
 
 
   return (
-    <div className="max-w-[600px] w-full mx-auto my-10 lg:my-20 px-5">
+    <div className="max-w-[600px] w-full mx-auto mt-10 lg:mt-20 mb-4 px-5">
       <h3 className='py-3 mb-5 text-2xl lg:text-3xl font-bold text-center'>Hello {name}! Welcome to your Profile</h3>
       <Card>
         <div className="relative h-[150px] w-full rounded-t-sm bg-primary">
@@ -100,7 +102,7 @@ const UserProfile: React.FC = () => {
         <CardDescription className="pt-2 text-center text-xl lg:text-2xl font-semibold">{patient?.id && "Patient"}</CardDescription>
         <CardDescription className="pt-2 text-center text-xl lg:text-2xl font-semibold">{doctor?.id && "Doctor"}</CardDescription>
         <CardFooter className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4">
-          <AlertDialog>
+          <AlertDialog onOpenChange={setModalClose} open={modalClose}>
             <AlertDialogTrigger className='py-2 px-4 font-semibold rounded-sm bg-slate-900 border border-slate-900 text-white hover:text-slate-900 hover:bg-white transition-all ease-in-out'>Update Profile</AlertDialogTrigger>
             <AlertDialogContent>
               <AlertDialogHeader>
@@ -145,7 +147,7 @@ const UserProfile: React.FC = () => {
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
-          <AlertDialog>
+          <AlertDialog onOpenChange={setModalClose} open={modalClose}>
             <AlertDialogTrigger className='py-2 px-4 font-semibold rounded-sm bg-slate-900 border border-slate-900 text-white hover:text-slate-900 hover:bg-white transition-all ease-in-out'>Update Password</AlertDialogTrigger>
             <AlertDialogContent>
               <AlertDialogHeader>

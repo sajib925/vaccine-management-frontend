@@ -98,6 +98,7 @@ const deleteVaccineData = async (id: number) => {
 
 const Vaccines: React.FC = () => {
   const [vaccines, setVaccines] = useState<Vaccine[]>([]);
+  const [modalClose, setModalClose] = useState(false)
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [formVaccine, setFormVaccine] = useState<VaccineData>({
@@ -150,6 +151,7 @@ const Vaccines: React.FC = () => {
     try {
       const response = await postVaccineData(formVaccine);
       setVaccines([...vaccines, response]);
+      setModalClose(false)
       toast.success("Vaccine created successfully");
     } catch (error) {
         toast.error("You are not doctor! So, you can not create and update vaccine");
@@ -185,6 +187,7 @@ const Vaccines: React.FC = () => {
           )
         );
         toast.success("Vaccine updated successfully");
+        setModalClose(false)
         setUpdatingVaccine(null);
       } catch (error) {
         toast.error("You are not doctor! So, you can not update and delete vaccine");
@@ -202,7 +205,7 @@ const Vaccines: React.FC = () => {
         <h2 className="scroll-m-20 pb-2 text-3xl font-bold tracking-tight first:mt-0">
             All Vaccines
         </h2>
-        <AlertDialog>
+        <AlertDialog onOpenChange={setModalClose} open={modalClose}>
           <AlertDialogTrigger asChild>
             <Button>Add Vaccine</Button>
             
@@ -260,7 +263,7 @@ const Vaccines: React.FC = () => {
                   {vaccine.schedule}
                 </td>
                 <td className="px-6 text-right py-4 whitespace-nowrap">
-                  <AlertDialog>
+                  <AlertDialog onOpenChange={setModalClose} open={modalClose}>
                     <AlertDialogTrigger asChild>
                       <Button onClick={() => handleUpdateVaccine(vaccine)}>
                         Update

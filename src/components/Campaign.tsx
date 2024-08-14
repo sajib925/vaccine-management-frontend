@@ -74,6 +74,7 @@ const Campaigns: React.FC = () => {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [modalClose, setModalClose] = useState(false)
   const [formData, setFormData] = useState<ReviewData>({
     campaign: 0,
     campaign_name: "",
@@ -150,6 +151,7 @@ const Campaigns: React.FC = () => {
       if (selectedCampaign) {
         const reviewData = { ...formData, campaign: selectedCampaign.id };
         const response = await postReviewData(reviewData);
+        setModalClose(false)
         toast.success("Review created successfully");
       } else {
         throw new Error("Selected campaign not found");
@@ -185,7 +187,7 @@ const Campaigns: React.FC = () => {
 
       <div className="flex items-center justify-between pb-4 border-b my-6">
         <h2 className="scroll-m-20 pb-4 lg:pb-6 text-3xl font-bold">All Reviews</h2>
-        <AlertDialog>
+        <AlertDialog onOpenChange={setModalClose} open={modalClose}>
           <AlertDialogTrigger asChild>
             <Button>Review</Button>
           </AlertDialogTrigger>

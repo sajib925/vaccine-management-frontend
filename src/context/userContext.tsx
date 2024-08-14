@@ -23,17 +23,26 @@ interface UserData {
   last_name: string;
 }
 
+type VaccineService = {
+  id: number;
+  name: string;
+  description: string;
+  image: string;
+};
+
 interface ContextProps {
   userData: UserData;
   patient: Patient | null;
   doctor: Doctor | null;
   allPatient: Patient[];
   allDoctor: Doctor[];
+  services: VaccineService[];
   setUserData: React.Dispatch<React.SetStateAction<UserData>>;
   setPatient: React.Dispatch<React.SetStateAction<Patient | null>>;
   setDoctor: React.Dispatch<React.SetStateAction<Doctor | null>>;
   setAllPatient: React.Dispatch<React.SetStateAction<Patient[]>>;
   setAllDoctor: React.Dispatch<React.SetStateAction<Doctor[]>>;
+  setServices: React.Dispatch<React.SetStateAction<VaccineService[]>>;
 }
 
 const UserContext = createContext<ContextProps | undefined>(undefined);
@@ -57,9 +66,10 @@ const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
   const [doctor, setDoctor] = useState<Doctor | null>(null);
   const [allPatient, setAllPatient] = useState<Patient[]>([]);
   const [allDoctor, setAllDoctor] = useState<Doctor[]>([]);
+  const [services, setServices] = useState<VaccineService[]>([]);
 
   return (
-    <UserContext.Provider value={{ userData, setUserData, patient, doctor, allPatient, allDoctor, setPatient, setDoctor, setAllPatient, setAllDoctor }}>
+    <UserContext.Provider value={{ userData, setUserData, patient, doctor, allPatient, allDoctor, services, setPatient, setDoctor, setAllPatient, setAllDoctor, setServices }}>
       {children}
     </UserContext.Provider>
   );

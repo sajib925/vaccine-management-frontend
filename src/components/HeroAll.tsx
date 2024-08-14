@@ -3,21 +3,18 @@ import React from 'react';
 
 const HeroAll = () => {
   return (
-    <div className="mx-auto w-full max-w-screen-xl">
-      <div className="relative w-full">
-        <Image
-          src="/image/test.jpg"
-          alt="banner image"
-          width={1200}
-          height={400}
-          className="w-full"
-        />
-        {/* <div className="absolute top-0 left-0 right-0 bottom-0 w-full h-full bg-white bg-opacity-50"></div> */}
-        {/* <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%]">
-          Welcome to vaccination management
-        </h1> */}
+    <section className="relative py-8 px-4 bg-gray-100 bg-[url('/image/cover.jpg')] bg-cover bg-center bg-no-repeat">
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-black opacity-50"></div>
+      <div className="relative container mx-auto">
+        <div className="text-center mb-8">
+          <h1 className="text-4xl font-bold mb-4 text-white">Every home is a destination</h1>
+          <p className="text-lg mb-6 text-white">
+            {`The best of Luxury Retreats is now Flowbite Luxe—offering the world's most extraordinary homes with the highest standard of service.`}
+          </p>
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 
