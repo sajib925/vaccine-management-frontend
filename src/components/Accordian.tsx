@@ -15,49 +15,48 @@ const FaqAccordion: React.FC = () => {
   const panels = [
     {
       id: 1,
-      question: "What are the advantages of your service?",
+      question: "How can I register for a vaccination?",
       answer:
-        "If you go over your organisations or user limit, a member of the team will reach out about bespoke pricing. In the meantime, our collaborative features won't appear in accounts or users that are over the 100-account or 1,000-user limit.",
+        "To register for a vaccination, simply create an account on our platform, log in, and follow the steps to book your vaccination slot.",
     },
     {
       id: 2,
-      question:
-        "Are there any fees or commissions in addition to the monthly subscription?",
+      question: "How do I check my vaccination schedule?",
       answer:
-        "If you go over your organisations or user limit, a member of the team will reach out about bespoke pricing. In the meantime, our collaborative features won't appear in accounts or users that are over the 100-account or 1,000-user limit.",
+        "You can check your vaccination schedule by logging into your account and navigating to the 'My Schedule' section. All your upcoming appointments will be listed there.",
     },
     {
       id: 3,
-      question: "You really don't charge per user? Why not?",
+      question: "Can I reschedule my vaccination appointment?",
       answer:
-        "If you go over your organisations or user limit, a member of the team will reach out about bespoke pricing. In the meantime, our collaborative features won't appear in accounts or users that are over the 100-account or 1,000-user limit.",
+        "Yes, you can reschedule your appointment from the 'My Schedule' section. Please note that rescheduling is subject to availability.",
     },
     {
       id: 4,
-      question: "What happens when I go over my monthly active limit?",
+      question: "What documents do I need to bring on the day of vaccination?",
       answer:
-        "If you go over your organisations or user limit, a member of the team will reach out about bespoke pricing. In the meantime, our collaborative features won't appear in accounts or users that are over the 100-account or 1,000-user limit.",
+        "On the day of vaccination, please bring a valid ID and any other documents specified in your appointment confirmation.",
     },
     {
       id: 5,
-      question:
-        "Can your service help me understand how to work with my product?",
+      question: "How do I get a digital copy of my vaccination certificate?",
       answer:
-        "If you go over your organisations or user limit, a member of the team will reach out about bespoke pricing. In the meantime, our collaborative features won't appear in accounts or users that are over the 100-account or 1,000-user limit.",
+        "After your vaccination, a digital copy of your certificate will be available for download in your account under the 'Certificates' section.",
     },
     {
       id: 6,
-      question: "Which third-party application do you integrate with?",
+      question: "What should I do if I experience side effects after vaccination?",
       answer:
-        "If you go over your organisations or user limit, a member of the team will reach out about bespoke pricing. In the meantime, our collaborative features won't appear in accounts or users that are over the 100-account or 1,000-user limit.",
+        "If you experience any side effects, please consult your doctor immediately. You can also report side effects through our platform under the 'Report Side Effects' section.",
     },
     {
       id: 7,
-      question: "I have another question!",
+      question: "How can I update my personal information?",
       answer:
-        "If you go over your organisations or user limit, a member of the team will reach out about bespoke pricing. In the meantime, our collaborative features won't appear in accounts or users that are over the 100-account or 1,000-user limit.",
+        "To update your personal information, log in to your account, go to 'Profile Settings', and make the necessary changes.",
     },
   ];
+  
 
     function setBannerOpen(arg0: boolean): void {
         throw new Error("Function not implemented.");
