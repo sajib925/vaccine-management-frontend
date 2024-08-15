@@ -62,9 +62,9 @@ const RegisterForm = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
       <Image src={"/image/signup.svg"} width={400} height={600} alt="login" />
       <Card>
-        <CardHeader>
+        <CardHeader className="pb-1">
           <CardTitle className="text-center">Register</CardTitle>
-          <CardContent>
+          <CardContent className="pb-0">
             <form onSubmit={handleSubmit}>
               <div className="pb-5 flex flex-col gap-4">
                 <Label className="">Username:</Label>
@@ -139,7 +139,7 @@ const RegisterForm = () => {
             </form>
           </CardContent>
         </CardHeader>
-        <CardFooter className="flex items-center justify-center gap-2">
+        <CardFooter className="flex items-center justify-center gap-2 pt-0">
           <p className="">{`Already have an account?`}</p>
             <Link href="/signIn" className="text-blue-900 font-semibold hover:underline hover:text-black transition-all ease-in-out">Login Now</Link>
         </CardFooter>

@@ -24,12 +24,7 @@ const Campaigns: React.FC = () => {
     const fetchCampaigns = async () => {
       try {
         const res = await axios.get<Campaign[]>(
-          "https://vaccine-management-backend-7qp2.onrender.com/api/campaign/",
-          {
-            headers: {
-              Authorization: `Token ${token}`,
-            },
-          }
+          "https://vaccine-management-backend-7qp2.onrender.com/api/campaign/"
         );
         setCampaigns(res.data);
       } catch (error: unknown) {
@@ -49,13 +44,12 @@ const Campaigns: React.FC = () => {
   if (loading) return <p className="text-center text-green-800">Loading...</p>;
 
   return (
-    <>
-      {userData.id ? (
+   
         <div
           id="campaign"
           className="max-w-screen-xl w-full mx-auto mb-10 lg:mb-20 px-5"
         >
-          <h2 className="scroll-m-20 pb-4 lg:pb-6 text-3xl font-bold">
+          <h2 className="text-center md:text-start scroll-m-20 pb-4 lg:pb-6 text-3xl font-bold">
             Join Our Life-Saving Vaccine Campaigns
           </h2>
           {/* Show Campaigns */}
@@ -81,10 +75,7 @@ const Campaigns: React.FC = () => {
             ))}
           </div>
         </div>
-      ) : (
-        ""
-      )}
-    </>
+    
   );
 };
 

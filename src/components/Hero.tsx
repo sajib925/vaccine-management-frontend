@@ -35,14 +35,13 @@ function Hero() {
           </p>
           {!authToken && (
             <div className="flex items-center flex-wrap gap-x-3 mt-4">
-              <Link href={"/signIn"} className="py-2 w-full md:w-auto md:px-8 font-semibold rounded-sm bg-slate-900 border border-slate-900 text-white hover:text-slate-900 hover:bg-white transition-all ease-in-out cursor-pointer">Sign In</Link>
-              <Link href={"/signUp"} className="py-2 w-full md:w-auto md:px-8 font-semibold rounded-sm bg-slate-900 border border-slate-900 text-white hover:text-slate-900 hover:bg-white transition-all ease-in-out cursor-pointer">Sign Up</Link>
+              <Link href={"/signIn"} className="py-3 w-full md:w-auto md:px-8 font-semibold rounded-sm bg-slate-900 border border-slate-900 text-white hover:text-slate-900 hover:bg-white transition-all ease-in-out cursor-pointer text-center">Get Vaccine</Link>
             </div>
           )}
           {
             userData.id ?
               (!patient?.id && !doctor?.id) && (
-                  <Link href="/userType" className="py-2 w-full md:w-auto md:px-8 font-semibold rounded-sm bg-slate-900 border border-slate-900 text-white hover:text-slate-900 hover:bg-white transition-all ease-in-out cursor-pointer">Become a Doctor or Patient</Link>
+                  <Link href="/userType" className="py-3 w-full md:w-auto md:px-8 font-semibold rounded-sm bg-slate-900 border border-slate-900 text-white hover:text-slate-900 hover:bg-white transition-all ease-in-out cursor-pointer text-center">Become a Doctor or Patient</Link>
               ): ""
           }
           

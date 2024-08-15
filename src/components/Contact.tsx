@@ -2,6 +2,7 @@
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Button } from "./ui/button";
+import Image from "next/image";
 
 interface FormInputs {
   name: string;
@@ -42,7 +43,10 @@ const ContactForm: React.FC = () => {
 
   return (
     <section className="bg-white dark:bg-gray-900">
-      <div className="py-8 lg:py-16 px-4 mx-auto max-w-screen-md">
+       <div className="py-8 lg:py-16 px-4 mx-auto max-w-screen-xl">
+      <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-y-4 gap-x-20">
+      <Image src={"/image/contact.svg"} width={450} height={300} alt="login" />
+     
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
           <div>
             <label
@@ -112,11 +116,12 @@ const ContactForm: React.FC = () => {
             )}
           </div>
           <div className="flex items-center justify-end">
-            <Button type="submit" className="">
+            <Button type="submit" className="w-full">
               Send message
             </Button>
           </div>
         </form>
+      </div>
       </div>
     </section>
   );

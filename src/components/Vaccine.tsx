@@ -200,15 +200,15 @@ const Vaccines: React.FC = () => {
 //   if (error) return <p className="text-center text-red-600">Error fetching data: {error}</p>;
 
   return (
-    <div id="vaccines" className="max-w-[1200px] w-full mx-auto my-[80px] px-5">
+    <div id="vaccines" className="max-w-screen-xl w-full mx-auto my-[80px] px-5">
       
-      <div className="flex items-center justify-between pb-4 border-b my-6">
-        <h2 className="scroll-m-20 pb-2 text-3xl font-bold tracking-tight first:mt-0">
+      <div className="flex items-center justify-center md:justify-between flex-wrap pb-4 gap-3 border-b my-6">
+        <h2 className="text-center scroll-m-20 pb-2 text-3xl font-bold tracking-tight first:mt-0">
             All Vaccines
         </h2>
         <AlertDialog onOpenChange={setModalCloseAdd} open={modalCloseAdd}>
           <AlertDialogTrigger asChild>
-            <Button>Add Vaccine</Button>
+          <span className="text-center py-3 w-full md:w-auto md:px-8 font-semibold rounded-sm bg-slate-900 border border-slate-900 text-white hover:text-slate-900 hover:bg-white transition-all ease-in-out cursor-pointer">Add Vaccine</span>
             
           </AlertDialogTrigger>
           <AlertDialogOverlay />

@@ -10,7 +10,6 @@ const Profile = () => {
     <Navbar />
     <main>
       <UserProfile />
-      <Bookings />
     </main>
     <Footer />
   </>

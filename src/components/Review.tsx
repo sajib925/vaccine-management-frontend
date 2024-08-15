@@ -102,12 +102,7 @@ const Review = () => {
     const fetchReviews = async () => {
       try {
         const res = await axios.get<Review[]>(
-          "https://vaccine-management-backend-7qp2.onrender.com/api/review/",
-          {
-            headers: {
-              Authorization: `Token ${token}`,
-            },
-          }
+          "https://vaccine-management-backend-7qp2.onrender.com/api/review/"
         );
         setReviews(res.data);
       } catch (error: unknown) {
@@ -124,18 +119,18 @@ const Review = () => {
   }, []);
   return (
     <>
-      {userData.id ? (
+   
         <div className="max-w-screen-xl w-full mx-auto px-5 mt-10 lg:mb-20 mb-10">
           {/* Create Review */}
 
-          <div className="flex items-center justify-between gap-4 mb-10 ">
-            <h2 className="scroll-m-20  text-3xl font-bold">
+          <div className="flex items-center justify-between flex-wrap gap-4 mb-10">
+            <h2 className="scroll-m-20 text-center justify-center md:justify-between text-3xl font-bold">
               Insightful Feedback from Our Patient
             </h2>
             {patient ? (
               <AlertDialog onOpenChange={setModalClose} open={modalClose}>
                 <AlertDialogTrigger asChild>
-                  <span className="py-2 w-full md:w-auto md:px-8 font-semibold rounded-sm bg-slate-900 border border-slate-900 text-white hover:text-slate-900 hover:bg-white transition-all ease-in-out cursor-pointer">Review</span>
+                  <span className="text-center py-3 w-full md:w-auto md:px-8 font-semibold rounded-sm bg-slate-900 border border-slate-900 text-white hover:text-slate-900 hover:bg-white transition-all ease-in-out cursor-pointer">Review</span>
                 </AlertDialogTrigger>
                 <AlertDialogContent>
                   <form onSubmit={handleSubmit}>
@@ -245,9 +240,7 @@ const Review = () => {
             ))}
           </Swiper>
         </div>
-      ) : (
-        ""
-      )}
+    
     </>
   );
 };

@@ -5,9 +5,9 @@ type HeroText = {
   desc: string;
 };
 
-const HeroAll: React.FC<HeroText> = (props) => {
+const HeroCampaign: React.FC<HeroText> = (props) => {
   return (
-    <section className={`relative mb-10 lg:mb-20 py-20 lg:py-44 px-4 bg-gray-100 bg-[url('/image/cover.jpg')] bg-cover bg-center bg-no-repeat`}>
+    <section className={`relative mb-10 lg:mb-20 py-20 lg:py-44 px-4 bg-gray-100 bg-[url('/image/test.jpg')] bg-cover bg-center bg-no-repeat`}>
       {/* Overlay */}
       <div className="absolute inset-0 bg-black opacity-50"></div>
       <div className="relative max-w-screen-xl w-full mx-auto">
@@ -20,4 +20,4 @@ const HeroAll: React.FC<HeroText> = (props) => {
   );
 };
 
-export default HeroAll;
+export default HeroCampaign;

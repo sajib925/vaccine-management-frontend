@@ -85,9 +85,9 @@ const LoginForm: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-y-4 gap-x-20">
         <Image src={"/image/login.svg"} width={400} height={300} alt="login" />
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-1">
             <CardTitle className="text-center">Login</CardTitle>
-            <CardContent>
+            <CardContent className="pb-0">
               <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="pb-5 flex flex-col gap-3">
                   <Label>Username:</Label>
@@ -111,7 +111,7 @@ const LoginForm: React.FC = () => {
               </form>
             </CardContent>
           </CardHeader>
-          <CardFooter className="flex items-center justify-center gap-2">
+          <CardFooter className="flex items-center justify-center gap-2 pt-0">
             <p className="">{`Don't have an account?`}</p>
             <Link href="/signUp" className="text-blue-900 font-semibold hover:underline hover:text-black transition-all ease-in-out cursor-pointer">Register Now</Link>
           </CardFooter>

@@ -91,7 +91,10 @@ const UserProfile: React.FC = () => {
   const name = `${userData.first_name} ${userData.last_name}`;
 
   return (
-    <div className="max-w-[600px] w-full mx-auto mt-10 lg:mt-20 mb-4 px-5">
+    <div className="max-w-screen-xl w-full mx-auto my-10 lg:my-20 px-5">
+      <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-y-4 gap-x-20">
+      <Image src={"/image/login.svg"} width={400} height={300} alt="login" />
+      <div>
       <h3 className="py-3 mb-5 text-2xl lg:text-3xl font-bold text-center">
         Hello {name}! Welcome to your Profile
       </h3>
@@ -227,7 +230,8 @@ const UserProfile: React.FC = () => {
           </AlertDialog>
         </CardFooter>
       </Card>
-      {/* <Bookings /> */}
+      </div>
+      </div>
     </div>
   );
 };

@@ -9,7 +9,7 @@ const Contact = () => {
     <>
     <Navbar />
     <main>
-      <HeroAll title={`Connect with Us: We're Here to Assist You Anytime`} desc={`Have questions or need support? Reach out to our dedicated team for assistance with your inquiries, feedback, or service needs. We're always ready to help.`} />
+      {/* <HeroAll title={`Connect with Us: We're Here to Assist You Anytime`} desc={`Have questions or need support? Reach out to our dedicated team for assistance with your inquiries, feedback, or service needs. We're always ready to help.`} /> */}
       <ContactForm />
     </main>
     <Footer />
