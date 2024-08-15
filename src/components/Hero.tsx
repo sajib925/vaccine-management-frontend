@@ -28,10 +28,10 @@ function Hero() {
         </div>
         <div className="w-full lg:w-[50%]">
           <h1 className="scroll-m-20 text-2xl md:text-4xl font-extrabold tracking-tight lg:text-5xl">
-            Welcome to vaccination management
+            Efficient Vaccination Management with Secure Patient Records
           </h1>
           <p className="leading-7 mt-4 lg:mt-6">
-            {`Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.`}
+            {`A streamlined vaccination management platform enabling efficient vaccine scheduling, patient registration, and dose tracking, with easy access to campaigns, secure patient records, and user-friendly interfaces.`}
           </p>
           {!authToken && (
             <div className="flex items-center flex-wrap gap-x-3 mt-4">
