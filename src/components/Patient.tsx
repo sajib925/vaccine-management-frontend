@@ -195,8 +195,12 @@ export const Patient = () => {
 
       return res.json();
     },
-    onSuccess: async (token: string) => {
-      window.localStorage.setItem("authToken", token);
+    onSuccess: async () => {
+      const token = window.localStorage.getItem("authToken");
+      if (!token) {
+        toast.error("Auth token not found");
+        return;
+      }
       toast.success("Patient Account created successfully");
       try {
         const userData = await fetchUserData(token);
@@ -224,7 +228,6 @@ export const Patient = () => {
       } catch (error) {
         toast.error("Failed to fetch user data");
       }
-      router.push("/");
     },
     onError: (error: Error) => {
       toast.error(error.message || "Error creating Patient Account");
@@ -286,9 +289,7 @@ export const Patient = () => {
                 )}
               </div>
               <div className="flex justify-end">
-                <Button type="submit" className="w-full">
-                  Submit
-                </Button>
+                <Button type="submit" className="w-full"disabled={mutation.isLoading}>{mutation.isLoading? "Loading..": "Create Patient"}</Button>
               </div>
             </form>
           </CardContent>

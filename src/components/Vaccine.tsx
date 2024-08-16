@@ -1,6 +1,8 @@
 "use client";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { useQuery, useMutation, useQueryClient } from "react-query";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { Card } from "./ui/card";
 import {
   AlertDialog,
@@ -25,214 +27,218 @@ interface Vaccine extends VaccineData {
   doctor_username: string;
 }
 
-const postVaccineData = async (data: VaccineData) => {
-    
-    
-  try {
-    const token = window.localStorage && window.localStorage.getItem("authToken");
-    if (!token) {
-      throw new Error("Authorization token not found");
-    }
-    
-    const response = await axios.post(
-      "https://vaccine-management-backend-7qp2.onrender.com/api/campaign/vaccine/",
-      data,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          'Authorization': `Token ${token}`,
-        },
-      }
-    );
-    return response.data;
-  } catch (error) {
-    console.error("Error posting vaccine data:", error);
-    throw error;
+const fetchVaccines = async () => {
+  const token = window.localStorage.getItem("authToken");
+  if (!token) {
+    throw new Error("Authorization token not found");
   }
+  const response = await axios.get<Vaccine[]>(
+    "https://vaccine-management-backend-7qp2.onrender.com/api/campaign/vaccine/",
+    {
+      headers: {
+        Authorization: `Token ${token}`,
+      },
+    }
+  );
+  return response.data;
+};
+
+const postVaccineData = async (data: VaccineData) => {
+  const token = window.localStorage.getItem("authToken");
+  if (!token) {
+    throw new Error("Authorization token not found");
+  }
+  const response = await axios.post(
+    "https://vaccine-management-backend-7qp2.onrender.com/api/campaign/vaccine/",
+    data,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`,
+      },
+    }
+  );
+  return response.data;
 };
 
 const updateVaccineData = async (id: number, data: VaccineData) => {
-  try {
-    const token =
-      window.localStorage && window.localStorage.getItem("authToken");
-    if (!token) {
-      throw new Error("Authorization token not found");
-    }
-    const response = await axios.put(
-      `https://vaccine-management-backend-7qp2.onrender.com/api/campaign/${id}/`,
-      data,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          'Authorization': `Token ${token}`,
-        },
-      }
-    );
-    return response.data;
-  } catch (error) {
-    console.error("Error updating vaccine data:", error);
-    throw error;
+  const token = window.localStorage.getItem("authToken");
+  if (!token) {
+    throw new Error("Authorization token not found");
   }
+  const response = await axios.put(
+    `https://vaccine-management-backend-7qp2.onrender.com/api/campaign/${id}/`,
+    data,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`,
+      },
+    }
+  );
+  return response.data;
 };
 
 const deleteVaccineData = async (id: number) => {
-  try {
-    const token =
-      window.localStorage && window.localStorage.getItem("authToken");
-    if (!token) {
-      throw new Error("Authorization token not found");
-    }
-    await axios.delete(
-      `https://vaccine-management-backend-7qp2.onrender.com/api/campaign/${id}/`,
-      {
-        headers: {
-          'Authorization': `Token ${token}`,
-        },
-      }
-    );
-  } catch (error) {
-    console.error("Error deleting vaccine data:", error);
-    throw error;
+  const token = window.localStorage.getItem("authToken");
+  if (!token) {
+    throw new Error("Authorization token not found");
   }
+  await axios.delete(
+    `https://vaccine-management-backend-7qp2.onrender.com/api/campaign/${id}/`,
+    {
+      headers: {
+        Authorization: `Token ${token}`,
+      },
+    }
+  );
 };
 
 const Vaccines: React.FC = () => {
-  const [vaccines, setVaccines] = useState<Vaccine[]>([]);
-  const [modalClose, setModalClose] = useState(false)
-  const [modalCloseAdd, setModalCloseAdd] = useState(false)
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
-  const [formVaccine, setFormVaccine] = useState<VaccineData>({
-    name: "",
-    schedule: "",
+  const queryClient = useQueryClient();
+  const {
+    data: vaccines = [],
+    isLoading,
+    isError,
+    error,
+  } = useQuery("vaccines", fetchVaccines);
+
+  const { register, handleSubmit, setValue, reset } = useForm<VaccineData>();
+  const [updatingVaccine, setUpdatingVaccine] = useState<Vaccine | null>(null);
+  const [modalCloseAdd, setModalCloseAdd] = useState(false);
+  const [modalClose, setModalClose] = useState(false);
+
+  const addVaccineMutation = useMutation(postVaccineData, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("vaccines");
+      toast.success("Vaccine created successfully");
+      setModalCloseAdd(false);
+      reset();
+    },
+    onError: (error: any) => {
+      if (axios.isAxiosError(error) && error.response) {
+        const responseData = error.response.data;
+        const errorMessage = Object.values(responseData).flat().join(" ");
+        toast.error(errorMessage);
+      } else {
+        toast.error("Something went wrong");
+      }
+    },
   });
 
-  const [updatingVaccine, setUpdatingVaccine] = useState<Vaccine | null>(null);
-  
-  useEffect(() => {
-    const fetchVaccines = async () => {
-      try {
-        const token = window.localStorage && window.localStorage.getItem("authToken");
-      
-        
-        const res = await axios.get<Vaccine[]>(
-          "https://vaccine-management-backend-7qp2.onrender.com/api/campaign/vaccine/",
-          {
-            headers: {
-              'Authorization': `Token ${token}`,
-            },
-          }
-        );
-        setVaccines(res.data);
-      } catch (error: unknown) {
-        if (axios.isAxiosError(error)) {
-          setError(error.message);
-        } else {
-          setError("An unexpected error occurred");
-        }
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchVaccines();
-  }, []);
-
-  const handleChangeVaccine = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
-  ) => {
-    const { name, value } = e.target;
-    setFormVaccine({ ...formVaccine, [name]: value });
-  };
-
-  const handleSubmitVaccine = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      const response = await postVaccineData(formVaccine);
-      setVaccines([...vaccines, response]);
-      setModalCloseAdd(false)
-      toast.success("Vaccine created successfully");
-    } catch (error) {
-        toast.error("You are not doctor! So, you can not create and update vaccine");
-    }
-  };
-
-  const handleDeleteVaccine = async (id: number) => {
-    try {
-      await deleteVaccineData(id);
-      setVaccines(vaccines.filter((vaccine) => vaccine.id !== id));
-      toast.success("Vaccine deleted successfully");
-    } catch (error) {
-        toast.error("You are not doctor! So, you can not delete vaccine");
-    }
-  };
-
-  const handleUpdateVaccine = (vaccine: Vaccine) => {
-    setFormVaccine({ name: vaccine.name, schedule: vaccine.schedule });
-    setUpdatingVaccine(vaccine);
-  };
-
-  const handleSubmitUpdateVaccine = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (updatingVaccine) {
-      try {
-        const updatedVaccine = await updateVaccineData(
-          updatingVaccine.id,
-          formVaccine
-        );
-        setVaccines(
-          vaccines.map((vaccine) =>
-            vaccine.id === updatingVaccine.id ? updatedVaccine : vaccine
-          )
-        );
+  const updateVaccineMutation = useMutation(
+    (data: { id: number; vaccineData: VaccineData }) =>
+      updateVaccineData(data.id, data.vaccineData),
+    {
+      onSuccess: () => {
+        queryClient.refetchQueries("vaccines");
         toast.success("Vaccine updated successfully");
-        setModalClose(false)
+        setModalClose(false);
+        reset();
         setUpdatingVaccine(null);
-      } catch (error) {
-        toast.error("You are not doctor! So, you can not update and delete vaccine");
+      },
+      onError: (error: any) => {
+        if (axios.isAxiosError(error) && error.response) {
+          const responseData = error.response.data;
+          const errorMessage = Object.values(responseData).flat().join(" ");
+          toast.error(errorMessage);
+        } else {
+          toast.error("Something went wrong");
+        }
+      },
+    }
+  );
+  
+  const deleteVaccineMutation = useMutation(deleteVaccineData, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("vaccines");
+      toast.success("Vaccine deleted successfully");
+    },
+    onError: (error: any) => {
+      if (axios.isAxiosError(error) && error.response) {
+        const responseData = error.response.data;
+        const errorMessage = Object.values(responseData).flat().join(" ");
+        toast.error(errorMessage);
+      } else {
+        toast.error("Something went wrong");
       }
+    },
+  });
+
+  const onSubmit: SubmitHandler<VaccineData> = (data) => {
+    addVaccineMutation.mutate(data);
+  };
+
+  const handleUpdate = (vaccine: Vaccine) => {
+    setValue("name", vaccine.name);
+    setValue("schedule", vaccine.schedule);
+    setUpdatingVaccine(vaccine);
+    setModalClose(true);
+  };
+
+  const onSubmitUpdate: SubmitHandler<VaccineData> = (data) => {
+    if (updatingVaccine) {
+      updateVaccineMutation.mutate({
+        id: updatingVaccine.id,
+        vaccineData: data,
+      });
     }
   };
 
-  if (loading) return <p className="text-center text-green-800">Loading...</p>;
-//   if (error) return <p className="text-center text-red-600">Error fetching data: {error}</p>;
+  if (isLoading)
+    return <p className="text-center text-green-800">Loading...</p>;
+  if (isError)
+    return (
+      <p className="text-center text-red-600">
+        Error fetching data:{" "}
+        {error instanceof Error ? error.message : "Unknown error"}
+      </p>
+    );
 
   return (
-    <div id="vaccines" className="max-w-screen-xl w-full mx-auto my-[80px] px-5">
-      
-      <div className="flex items-center justify-center md:justify-between flex-wrap pb-4 gap-3 border-b my-6">
-        <h2 className="text-center scroll-m-20 pb-2 text-3xl font-bold tracking-tight first:mt-0">
-            All Vaccines
-        </h2>
+    <div
+      id="vaccines"
+      className="max-w-screen-xl w-full mx-auto my-[80px] px-5"
+    >
+      <div className="flex items-center justify-center md:justify-between flex-wrap pb-4 gap-3 my-6">
+        <div className="">
+          <span className="text-sm text-gray-500 font-medium text-center md:text-start block mb-2">
+            VACCINES
+          </span>
+          <h2 className="scroll-m-20 text-center md:text-start justify-center md:justify-between text-3xl font-bold">
+            Explore All Available Vaccines
+          </h2>
+        </div>
         <AlertDialog onOpenChange={setModalCloseAdd} open={modalCloseAdd}>
           <AlertDialogTrigger asChild>
-          <span className="text-center py-3 w-full md:w-auto md:px-8 font-semibold rounded-sm bg-slate-900 border border-slate-900 text-white hover:text-slate-900 hover:bg-white transition-all ease-in-out cursor-pointer">Add Vaccine</span>
-            
+            <span className="text-center py-3 w-full md:w-auto md:px-8 font-semibold rounded-sm bg-slate-900 border border-slate-900 text-white hover:text-slate-900 hover:bg-white transition-all ease-in-out cursor-pointer">
+              Add Vaccine
+            </span>
           </AlertDialogTrigger>
           <AlertDialogOverlay />
           <AlertDialogContent>
-            <form onSubmit={handleSubmitVaccine}>
+            <form onSubmit={handleSubmit(onSubmit)}>
               <div className="pb-5 flex flex-col gap-3">
-                  <Label className="">Add Vaccine:</Label>
-                  <Input
-                    name="name"
-                    onChange={handleChangeVaccine}
-                    required
-                    placeholder="Vaccine Name"
-                  />
-                </div>
-                <div className="pb-5 flex flex-col gap-3">
-                  <Label className="">Add Schedule:</Label>
-                  <Input
-                    name="schedule"
-                    onChange={handleChangeVaccine}
-                    required
-                    placeholder="2024-09-03"
-                  />
+                <Label>Add Vaccine:</Label>
+                <Input
+                  {...register("name", { required: true })}
+                  placeholder="Vaccine Name"
+                />
               </div>
-              <Button type="submit" className="w-full">Add</Button>
+              <div className="pb-5 flex flex-col gap-3">
+                <Label>Add Schedule:</Label>
+                <Input
+                  {...register("schedule", { required: true })}
+                  placeholder="2024-09-03"
+                />
+              </div>
+              <Button
+                type="submit"
+                className="w-full"
+                disabled={addVaccineMutation.isLoading}
+              >
+                {addVaccineMutation.isLoading ? "Adding.." : "Add"}
+              </Button>
             </form>
             <AlertDialogFooter>
               <AlertDialogCancel className="w-full">Cancel</AlertDialogCancel>
@@ -259,58 +265,60 @@ const Vaccines: React.FC = () => {
           <tbody className="bg-white divide-y divide-gray-200">
             {vaccines.map((vaccine) => (
               <tr key={vaccine.id}>
-                <td className="px-6 text-left py-4 whitespace-nowrap">{vaccine.name}</td>
+                <td className="px-6 text-left py-4 whitespace-nowrap">
+                  {vaccine.name}
+                </td>
                 <td className="px-6 text-center py-4 whitespace-nowrap">
                   {vaccine.schedule}
                 </td>
-                <td className="px-6 text-right py-4 whitespace-nowrap">
+                <td className="px-6 text-right py-4 whitespace-nowrap flex justify-end gap-2">
                   <AlertDialog onOpenChange={setModalClose} open={modalClose}>
                     <AlertDialogTrigger asChild>
-                      <Button onClick={() => handleUpdateVaccine(vaccine)}>
+                      <Button onClick={() => handleUpdate(vaccine)}>
                         Update
                       </Button>
                     </AlertDialogTrigger>
                     <AlertDialogOverlay />
                     <AlertDialogContent>
-                      <form onSubmit={handleSubmitUpdateVaccine}>
+                      <form onSubmit={handleSubmit(onSubmitUpdate)}>
                         <div className="pb-5 flex flex-col gap-3">
-                          <Label className="">Update Vaccine:</Label>
+                          <Label>Update Vaccine:</Label>
                           <Input
-                            name="name"
-                            value={formVaccine.name}
-                            onChange={handleChangeVaccine}
-                            required
+                            {...register("name", { required: true })}
                             placeholder="Vaccine Name"
+                            defaultValue={vaccine.name}
                           />
                         </div>
                         <div className="pb-5 flex flex-col gap-3">
-                        <Label className="">Update Schedule:</Label>
+                          <Label>Update Schedule:</Label>
                           <Input
-                            name="schedule"
-                            value={formVaccine.schedule}
-                            onChange={handleChangeVaccine}
-                            required
+                            {...register("schedule", { required: true })}
                             placeholder="2024-09-03"
+                            defaultValue={vaccine.schedule}
                           />
                         </div>
-                        <Button type="submit" className="w-full">Update</Button>
+                        <Button
+                          type="submit"
+                          className="w-full"
+                          disabled={updateVaccineMutation.isLoading}
+                        >
+                          {updateVaccineMutation.isLoading
+                            ? "Updating"
+                            : "Update"}
+                        </Button>
                       </form>
                       <AlertDialogFooter>
-                        <AlertDialogCancel
-                          onClick={() => setUpdatingVaccine(null)}
-                          className="w-full"
-                        >
+                        <AlertDialogCancel className="w-full">
                           Cancel
                         </AlertDialogCancel>
                       </AlertDialogFooter>
                     </AlertDialogContent>
                   </AlertDialog>
-
                   <Button
-                    onClick={() => handleDeleteVaccine(vaccine.id)}
-                    className="ml-2"
+                    onClick={() => deleteVaccineMutation.mutate(vaccine.id)}
+                    className="bg-red-500 hover:bg-red-700"
                   >
-                    Delete
+                    {deleteVaccineMutation.isLoading ? "Deleting" : "Delete"}
                   </Button>
                 </td>
               </tr>

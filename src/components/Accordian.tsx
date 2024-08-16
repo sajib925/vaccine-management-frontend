@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useState } from "react";
 
 const FaqAccordion: React.FC = () => {
@@ -45,7 +45,8 @@ const FaqAccordion: React.FC = () => {
     },
     {
       id: 6,
-      question: "What should I do if I experience side effects after vaccination?",
+      question:
+        "What should I do if I experience side effects after vaccination?",
       answer:
         "If you experience any side effects, please consult your doctor immediately. You can also report side effects through our platform under the 'Report Side Effects' section.",
     },
@@ -56,17 +57,23 @@ const FaqAccordion: React.FC = () => {
         "To update your personal information, log in to your account, go to 'Profile Settings', and make the necessary changes.",
     },
   ];
-  
 
-    function setBannerOpen(arg0: boolean): void {
-        throw new Error("Function not implemented.");
-    }
+  function setBannerOpen(arg0: boolean): void {
+    throw new Error("Function not implemented.");
+  }
 
   return (
     <div className="relative font-inter antialiased">
       <div className="relative flex flex-col justify-center bg-slate-50 overflow-hidden">
         <div className="max-w-screen-xl w-full mx-auto px-4 md:px-6 py-10 lg:py-20">
-          <h1 className="text-2xl font-bold text-slate-900 mb-4">FAQs</h1>
+          <div className="mb-6 md:mb-10">
+            <span className="text-sm text-gray-500 font-medium text-center md:text-start block mb-2">
+              FAQ
+            </span>
+            <h2 className="scroll-m-20 text-center md:text-start justify-center md:justify-between text-3xl font-bold">
+              Frequently Asked Questions: Your Top Queries Answered
+            </h2>
+          </div>
           <div className="divide-y divide-slate-200">
             {panels.map((panel) => (
               <div key={panel.id} className="py-2">

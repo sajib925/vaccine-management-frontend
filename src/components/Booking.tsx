@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useQuery, useMutation, useQueryClient } from "react-query";
@@ -62,7 +62,13 @@ const fetchBookings = async (): Promise<Booking[]> => {
   return response.data;
 };
 
-const updateBookingData = async ({ id, data }: { id: number; data: BookingFormInput }) => {
+const updateBookingData = async ({
+  id,
+  data,
+}: {
+  id: number;
+  data: BookingFormInput;
+}) => {
   const token = localStorage.getItem("authToken");
   const response = await axios.put(
     `https://vaccine-management-backend-7qp2.onrender.com/api/booking/${id}/`,
@@ -91,7 +97,11 @@ const deleteBookingData = async (id: number) => {
 
 const Bookings: React.FC = () => {
   const queryClient = useQueryClient();
-  const { data: bookings, isLoading, error } = useQuery("bookings", fetchBookings);
+  const {
+    data: bookings,
+    isLoading,
+    error,
+  } = useQuery("bookings", fetchBookings);
   const [campaigns, setCampaigns] = useState<Campaign[]>([]);
   const [vaccines, setVaccines] = useState<Vaccine[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -100,19 +110,23 @@ const Bookings: React.FC = () => {
   useEffect(() => {
     const fetchCampaigns = async () => {
       try {
-        const token = window.localStorage && window.localStorage.getItem('authToken');
+        const token =
+          window.localStorage && window.localStorage.getItem("authToken");
         if (!token) {
-          throw new Error('Authorization token not found');
+          throw new Error("Authorization token not found");
         }
 
-        const res = await axios.get<Campaign[]>('https://vaccine-management-backend-7qp2.onrender.com/api/campaign/', {
-          headers: {
-            "Authorization": `Token ${token}`,
-          },
-        });
+        const res = await axios.get<Campaign[]>(
+          "https://vaccine-management-backend-7qp2.onrender.com/api/campaign/",
+          {
+            headers: {
+              Authorization: `Token ${token}`,
+            },
+          }
+        );
         setCampaigns(res.data);
       } catch (error: unknown) {
-        toast.error("something went wrong")
+        toast.error("something went wrong");
       } finally {
         setLoading(false);
       }
@@ -120,19 +134,23 @@ const Bookings: React.FC = () => {
 
     const fetchVaccines = async () => {
       try {
-        const token = window.localStorage && window.localStorage.getItem('authToken');
+        const token =
+          window.localStorage && window.localStorage.getItem("authToken");
         if (!token) {
-          throw new Error('Authorization token not found');
+          throw new Error("Authorization token not found");
         }
 
-        const res = await axios.get<Vaccine[]>('https://vaccine-management-backend-7qp2.onrender.com/api/campaign/vaccine/', {
-          headers: {
-            "Authorization": `Token ${token}`,
-          },
-        });
+        const res = await axios.get<Vaccine[]>(
+          "https://vaccine-management-backend-7qp2.onrender.com/api/campaign/vaccine/",
+          {
+            headers: {
+              Authorization: `Token ${token}`,
+            },
+          }
+        );
         setVaccines(res.data);
       } catch (error: unknown) {
-        toast.error("something went wrong")
+        toast.error("something went wrong");
       } finally {
         setLoading(false);
       }
@@ -186,13 +204,27 @@ const Bookings: React.FC = () => {
     }
   };
 
-  if (isLoading) return <p className="text-center text-green-800">Loading...</p>;
-  if (error) return <p className="text-center text-red-800">Error: {(error as Error).message}</p>;
+  if (isLoading)
+    return <p className="text-center text-green-800">Loading...</p>;
+  if (error)
+    return (
+      <p className="text-center text-red-800">
+        Error: {(error as Error).message}
+      </p>
+    );
 
   return (
-    <div id="bookings" className="max-w-screen-xl w-full mx-auto my-[80px] px-5">
-      <div className="flex items-center justify-center pb-4 my-6">
-        <h2 className="scroll-m-20 pb-2 text-3xl font-bold tracking-tight first:mt-0 text-center">All Bookings</h2>
+    <div
+      id="bookings"
+      className="max-w-screen-xl w-full mx-auto my-[80px] px-5"
+    >
+      <div className="mb-6 md:mb-10">
+        <span className="text-sm text-gray-500 font-medium text-center md:text-start block mb-2">
+          BOOKINGS
+        </span>
+        <h2 className="scroll-m-20 text-center md:text-start justify-center md:justify-between text-3xl font-bold">
+          View and manage all your bookings here
+        </h2>
       </div>
 
       <Card className="w-full overflow-auto">
@@ -225,10 +257,18 @@ const Bookings: React.FC = () => {
                 <td className="px-6 text-left py-4 whitespace-nowrap">
                   {`${booking.patient_first_name} ${booking.patient_last_name}`}
                 </td>
-                <td className="px-6 text-center py-4 whitespace-nowrap">{booking.campaign_name}</td>
-                <td className="px-6 text-center py-4 whitespace-nowrap">{booking.vaccine_name}</td>
-                <td className="px-6 text-center py-4 whitespace-nowrap">{booking.first_dose_date}</td>
-                <td className="px-6 text-center py-4 whitespace-nowrap">{booking.second_dose_date}</td>
+                <td className="px-6 text-center py-4 whitespace-nowrap">
+                  {booking.campaign_name}
+                </td>
+                <td className="px-6 text-center py-4 whitespace-nowrap">
+                  {booking.vaccine_name}
+                </td>
+                <td className="px-6 text-center py-4 whitespace-nowrap">
+                  {booking.first_dose_date}
+                </td>
+                <td className="px-6 text-center py-4 whitespace-nowrap">
+                  {booking.second_dose_date}
+                </td>
                 <td className="px-6 text-right py-4 whitespace-nowrap">
                   {/* <AlertDialog onOpenChange={setModalOpen} open={modalOpen}>
                     <AlertDialogTrigger asChild>
@@ -265,7 +305,10 @@ const Bookings: React.FC = () => {
                     </AlertDialogContent>
                   </AlertDialog> */}
 
-                  <Button onClick={() => deleteMutation.mutate(booking.id)} className="">
+                  <Button
+                    onClick={() => deleteMutation.mutate(booking.id)}
+                    className=""
+                  >
                     Delete
                   </Button>
                 </td>
@@ -512,7 +555,7 @@ export default Bookings;
 //             </tr>
 //           </thead>
 //           <tbody className="bg-white divide-y divide-gray-200">
-           
+
 //             {bookings?.map((booking) => (
 //               <tr key={booking.id}>
 //                 <td className="px-6 text-left py-4 whitespace-nowrap">

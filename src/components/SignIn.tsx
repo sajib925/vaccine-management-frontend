@@ -70,8 +70,16 @@ const LoginForm: React.FC = () => {
           toast.error('Failed to fetch user data');
         }
       },
-      onError: () => {
-        toast.error('Something went wrong');
+      onError: (error) => {
+        if (axios.isAxiosError(error) && error.response) {
+          const responseData = error.response.data;
+          const errorMessage = Object.values(responseData)
+            .flat() 
+            .join(' '); 
+          toast.error(errorMessage);
+        } else {
+          toast.error('Something went wrong');
+        }
       },
     }
   );
@@ -107,7 +115,9 @@ const LoginForm: React.FC = () => {
                   />
                   {errors.password && <p className="text-red-500">{errors.password.message}</p>}
                 </div>
-                <Button type="submit" className="w-full">Login</Button>
+                <Button type="submit" className="w-full" disabled={loginMutation.isLoading}>
+                  {loginMutation.isLoading ? "Logging in..." : "Login"}
+                </Button>
               </form>
             </CardContent>
           </CardHeader>
