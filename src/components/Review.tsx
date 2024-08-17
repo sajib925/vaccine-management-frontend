@@ -229,7 +229,7 @@ const Review = () => {
                   <h3 className="text-xl font-semibold">{item.campaign_name}</h3>
                 </div>
                 <div className="pt-4">
-                  <p className="text-gray-700 text-base">
+                  <p className="text-gray-700 text-base break-words">
                     {item.comment}
                   </p>
                 </div>
