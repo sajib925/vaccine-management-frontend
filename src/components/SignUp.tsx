@@ -33,7 +33,7 @@ const RegisterForm = () => {
   const mutation = useMutation(
     async (formData: FormData) => {
       const response = await axios.post(
-        "https://vaccine-management-backend-7qp2.onrender.com/api/auth/register/",
+        "https://vaccine-management-backend-j2ii.onrender.com/api/auth/register/",
         formData
       );
       return response.data;

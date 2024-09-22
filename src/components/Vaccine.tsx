@@ -33,7 +33,7 @@ const fetchVaccines = async () => {
     throw new Error("Authorization token not found");
   }
   const response = await axios.get<Vaccine[]>(
-    "https://vaccine-management-backend-7qp2.onrender.com/api/campaign/vaccine/",
+    "https://vaccine-management-backend-j2ii.onrender.com/api/campaign/vaccine/",
     {
       headers: {
         Authorization: `Token ${token}`,
@@ -49,7 +49,7 @@ const postVaccineData = async (data: VaccineData) => {
     throw new Error("Authorization token not found");
   }
   const response = await axios.post(
-    "https://vaccine-management-backend-7qp2.onrender.com/api/campaign/vaccine/",
+    "https://vaccine-management-backend-j2ii.onrender.com/api/campaign/vaccine/",
     data,
     {
       headers: {
@@ -67,7 +67,7 @@ const updateVaccineData = async (id: number, data: VaccineData) => {
     throw new Error("Authorization token not found");
   }
   const response = await axios.put(
-    `https://vaccine-management-backend-7qp2.onrender.com/api/campaign/${id}/`,
+    `https://vaccine-management-backend-j2ii.onrender.com/api/campaign/${id}/`,
     data,
     {
       headers: {
@@ -85,7 +85,7 @@ const deleteVaccineData = async (id: number) => {
     throw new Error("Authorization token not found");
   }
   await axios.delete(
-    `https://vaccine-management-backend-7qp2.onrender.com/api/campaign/${id}/`,
+    `https://vaccine-management-backend-j2ii.onrender.com/api/campaign/${id}/`,
     {
       headers: {
         Authorization: `Token ${token}`,

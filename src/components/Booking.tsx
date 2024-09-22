@@ -52,7 +52,7 @@ interface Vaccine {
 const fetchBookings = async (): Promise<Booking[]> => {
   const token = localStorage.getItem("authToken");
   const response = await axios.get<Booking[]>(
-    "https://vaccine-management-backend-7qp2.onrender.com/api/booking/",
+    "https://vaccine-management-backend-j2ii.onrender.com/api/booking/",
     {
       headers: {
         Authorization: `Token ${token}`,
@@ -71,7 +71,7 @@ const updateBookingData = async ({
 }) => {
   const token = localStorage.getItem("authToken");
   const response = await axios.put(
-    `https://vaccine-management-backend-7qp2.onrender.com/api/booking/${id}/`,
+    `https://vaccine-management-backend-j2ii.onrender.com/api/booking/${id}/`,
     data,
     {
       headers: {
@@ -86,7 +86,7 @@ const updateBookingData = async ({
 const deleteBookingData = async (id: number) => {
   const token = localStorage.getItem("authToken");
   await axios.delete(
-    `https://vaccine-management-backend-7qp2.onrender.com/api/booking/${id}/`,
+    `https://vaccine-management-backend-j2ii.onrender.com/api/booking/${id}/`,
     {
       headers: {
         Authorization: `Token ${token}`,
@@ -117,7 +117,7 @@ const Bookings: React.FC = () => {
         }
 
         const res = await axios.get<Campaign[]>(
-          "https://vaccine-management-backend-7qp2.onrender.com/api/campaign/",
+          "https://vaccine-management-backend-j2ii.onrender.com/api/campaign/",
           {
             headers: {
               Authorization: `Token ${token}`,
@@ -141,7 +141,7 @@ const Bookings: React.FC = () => {
         }
 
         const res = await axios.get<Vaccine[]>(
-          "https://vaccine-management-backend-7qp2.onrender.com/api/campaign/vaccine/",
+          "https://vaccine-management-backend-j2ii.onrender.com/api/campaign/vaccine/",
           {
             headers: {
               Authorization: `Token ${token}`,

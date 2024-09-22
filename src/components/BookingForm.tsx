@@ -36,7 +36,7 @@ const fetchCampaigns = async () => {
   if (!token) {
     throw new Error('Authorization token not found');
   }
-  const res = await axios.get<Campaign[]>('https://vaccine-management-backend-7qp2.onrender.com/api/campaign/', {
+  const res = await axios.get<Campaign[]>('https://vaccine-management-backend-j2ii.onrender.com/api/campaign/', {
     headers: { Authorization: `Token ${token}` },
   });
   return res.data;
@@ -47,7 +47,7 @@ const fetchVaccines = async () => {
   if (!token) {
     throw new Error('Authorization token not found');
   }
-  const res = await axios.get<Vaccine[]>('https://vaccine-management-backend-7qp2.onrender.com/api/campaign/vaccine/', {
+  const res = await axios.get<Vaccine[]>('https://vaccine-management-backend-j2ii.onrender.com/api/campaign/vaccine/', {
     headers: { Authorization: `Token ${token}` },
   });
   return res.data;
@@ -59,7 +59,7 @@ const postBookingData = async (data: BookingData) => {
   if (!token) {
     throw new Error('Authorization token not found');
   }
-  const response = await axios.post('https://vaccine-management-backend-7qp2.onrender.com/api/booking/', {
+  const response = await axios.post('https://vaccine-management-backend-j2ii.onrender.com/api/booking/', {
     campaign: data.campaign,
     vaccine: data.vaccine,
     first_dose_date: data.first_dose_date,

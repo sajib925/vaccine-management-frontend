@@ -22,7 +22,7 @@ const ContactForm: React.FC = () => {
   const mutation = useMutation(
     async (data: FormInputs) => {
       const response = await fetch(
-        "https://vaccine-management-backend-7qp2.onrender.com/api/contact/",
+        "https://vaccine-management-backend-j2ii.onrender.com/api/contact/",
         {
           method: "POST",
           headers: {

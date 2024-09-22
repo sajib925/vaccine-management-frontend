@@ -23,7 +23,7 @@ const Campaigns: React.FC = () => {
     const fetchCampaigns = async () => {
       try {
         const res = await axios.get<Campaign[]>(
-          "https://vaccine-management-backend-7qp2.onrender.com/api/campaign/"
+          "https://vaccine-management-backend-j2ii.onrender.com/api/campaign/"
         );
         setCampaigns(res.data);
       } catch (error: unknown) {
