@@ -45,7 +45,7 @@ export const Patient = () => {
     mutationFn: async (formData: PatientFormValues) => {
       const authToken = window.localStorage.getItem("authToken") ?? "";
       const res = await fetch(
-        "https://vaccine-management-backend-j2ii.onrender.com/api/auth/patient/",
+        "https://vaccine-management-supebase.vercel.app/api/auth/patient/",
         {
           method: "POST",
           headers: {

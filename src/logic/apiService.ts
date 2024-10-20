@@ -28,7 +28,7 @@ type VaccineService = {
   description: string;
   image: string;
 };
-const API_URL = 'https://vaccine-management-backend-j2ii.onrender.com/api';
+const API_URL = 'https://vaccine-management-supebase.vercel.app/api';
 
 export const fetchServiceData = async () => {
   const response = await axios.get<VaccineService>(`${API_URL}/service/`);

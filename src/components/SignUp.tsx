@@ -33,7 +33,7 @@ const RegisterForm = () => {
   const mutation = useMutation(
     async (formData: FormData) => {
       const response = await axios.post(
-        "https://vaccine-management-backend-j2ii.onrender.com/api/auth/register/",
+        "https://vaccine-management-supebase.vercel.app/api/auth/register/",
         formData
       );
       return response.data;

@@ -39,7 +39,7 @@ interface ReviewData {
 // API functions
 const fetchReviews = async (): Promise<Review[]> => {
   const response = await axios.get<Review[]>(
-    "https://vaccine-management-backend-j2ii.onrender.com/api/review/"
+    "https://vaccine-management-supebase.vercel.app/api/review/"
   );
   return response.data;
 };
@@ -52,7 +52,7 @@ const postReviewData = async (data: ReviewData): Promise<Review> => {
 
   try {
     const response = await axios.post(
-      "https://vaccine-management-backend-j2ii.onrender.com/api/review/",
+      "https://vaccine-management-supebase.vercel.app/api/review/",
       data,
       {
         headers: {

@@ -82,7 +82,7 @@ const Navbar = () => {
     const fetchUserData = async () => {
       try {
         const response = await axios.get<UserData>(
-          "https://vaccine-management-backend-j2ii.onrender.com/api/auth/profile/",
+          "https://vaccine-management-supebase.vercel.app/api/auth/profile/",
           {
             headers: {
               Authorization: `Token ${token}`,
@@ -100,7 +100,7 @@ const Navbar = () => {
     const fetchPatientsData = async () => {
       try {
         const response = await axios.get<Patient[]>(
-          "https://vaccine-management-backend-j2ii.onrender.com/api/auth/patient/",
+          "https://vaccine-management-supebase.vercel.app/api/auth/patient/",
           {
             headers: {
               Authorization: `Token ${token}`,
@@ -118,7 +118,7 @@ const Navbar = () => {
     const fetchDoctorsData = async () => {
       try {
         const response = await axios.get<Doctor[]>(
-          "https://vaccine-management-backend-j2ii.onrender.com/api/auth/doctor/",
+          "https://vaccine-management-supebase.vercel.app/api/auth/doctor/",
           {
             headers: {
               Authorization: `Token ${token}`,
@@ -139,7 +139,7 @@ const Navbar = () => {
     const fetchCampaigns = async () => {
       try {
         const res = await axios.get<Campaign[]>(
-          "https://vaccine-management-backend-j2ii.onrender.com/api/campaign/"
+          "https://vaccine-management-supebase.vercel.app/api/campaign/"
         );
         setCampaigns(res.data);
       } catch (error: unknown) {
@@ -155,7 +155,7 @@ const Navbar = () => {
     const fetchReviews = async () => {
       try {
         const res = await axios.get<Review[]>(
-          "https://vaccine-management-backend-j2ii.onrender.com/api/review/"
+          "https://vaccine-management-supebase.vercel.app/api/review/"
         );
         setReview(res.data);
       } catch (error: unknown) {
@@ -195,7 +195,7 @@ const Navbar = () => {
     try {
       const authToken = window.localStorage.getItem("authToken");
       const res = await fetch(
-        "https://vaccine-management-backend-j2ii.onrender.com/api/auth/logout/",
+        "https://vaccine-management-supebase.vercel.app/api/auth/logout/",
         {
           method: "POST",
           headers: {

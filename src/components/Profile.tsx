@@ -75,7 +75,7 @@ const UserProfile: React.FC = () => {
     async (data: UserProfileData) => {
       const token = window.localStorage.getItem("authToken");
       await axios.patch(
-        "https://vaccine-management-backend-j2ii.onrender.com/api/auth/profile/",
+        "https://vaccine-management-supebase.vercel.app/api/auth/profile/",
         data,
         {
           headers: {
@@ -109,7 +109,7 @@ const UserProfile: React.FC = () => {
     async (data: UserPass) => {
       const token = window.localStorage.getItem("authToken");
       await axios.put(
-        "https://vaccine-management-backend-j2ii.onrender.com/api/auth/password/",
+        "https://vaccine-management-supebase.vercel.app/api/auth/password/",
         data,
         {
           headers: {

@@ -33,7 +33,7 @@ const LoginForm: React.FC = () => {
 
   const loginMutation = useMutation(
     async (formData: FormData) => {
-      const res = await axios.post('https://vaccine-management-backend-j2ii.onrender.com/api/auth/login/', formData, {
+      const res = await axios.post('https://vaccine-management-supebase.vercel.app/api/auth/login/', formData, {
         headers: {
           'Content-Type': 'application/json',
         },
