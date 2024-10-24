@@ -150,9 +150,9 @@ const UserProfile: React.FC = () => {
   const name = `${userData.first_name} ${userData.last_name}`;
 
   return (
-    <div className="max-w-screen-xl w-full mx-auto mb-10 mt-20 lg:mt-32 lg:mb-20 px-5">
+    <div className="max-w-screen-xl w-full mx-auto my-32 lg:my-40 px-4">
       <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-y-4 gap-x-20">
-        <Image src={"/image/login.svg"} width={400} height={300} alt="login" />
+        <Image src={"/image/login.svg"} width={400} height={300} alt="login" className="w-full" />
         <div>
           <h3 className="py-3 mb-5 text-2xl lg:text-3xl font-bold text-center">
             Hello {name}! Welcome to your Profile

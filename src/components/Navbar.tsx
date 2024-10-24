@@ -418,7 +418,7 @@ const Navbar = () => {
               ) : (
                   <>
                     <Link
-                        href={"/signIn"}
+                        href={"/signUp"}
                         className="py-2 px-4 font-semibold rounded-sm bg-slate-900 border border-slate-900 text-white hover:text-slate-900 hover:bg-white transition-all ease-in-out cursor-pointer lg:mr-2"
                     >
                       Open Account

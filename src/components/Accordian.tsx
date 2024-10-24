@@ -60,7 +60,7 @@ const FaqAccordion: React.FC = () => {
 
 
   return (
-    <div className="relative">
+    <div className="relative pt-8 lg:pt-12">
       <div className="flex flex-col justify-center">
         <div className="max-w-screen-xl w-full mx-auto px-4 md:px-6 py-10 lg:py-20">
           <div className="mb-6 md:mb-10">

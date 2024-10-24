@@ -62,9 +62,9 @@ const RegisterForm = () => {
   };
 
   return (
-    <div className="max-w-screen-xl w-full mx-auto my-10 lg:my-20 px-5">
+    <div className="max-w-screen-xl w-full mx-auto my-32 lg:my-40 px-5">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
-        <Image src={"/image/signup.svg"} width={400} height={600} alt="login" />
+        <Image src={"/image/signup.svg"} width={400} height={600} alt="login" className="w-full" />
         <Card>
           <CardHeader className="pb-1">
             <CardTitle className="text-center">Register</CardTitle>
