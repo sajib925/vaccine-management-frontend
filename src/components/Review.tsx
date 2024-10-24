@@ -19,20 +19,22 @@ import "swiper/css/pagination";
 import { useUserContext } from "@/context/userContext";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
+import {Loading} from "@/components/Loading";
 
-// Define interfaces
 interface Review {
   id: number;
   patient_first_name: string;
   patient_last_name: string;
   patient_username: string;
   campaign_name: string;
+  rating: string;
   comment: string;
 }
 
 interface ReviewData {
   campaign: number;
   campaign_name: string;
+  rating: string;
   comment: string;
 }
 
@@ -112,7 +114,6 @@ const Review = () => {
       toast.error("Selected campaign not found");
     }
   };
-
   return (
     <>
       <div className="max-w-screen-xl w-full mx-auto px-5 mt-10 lg:mb-20 mb-10">
@@ -155,6 +156,22 @@ const Review = () => {
                       </span>
                     )}
                   </div>
+                  {/* Rating Field (Dropdown) */}
+                  <div className="pb-5 flex flex-col gap-3">
+                    <Label className="text-base">Rating:</Label>
+                    <select
+                        {...register("rating", {required: "Rating is required"})}
+                        className="border rounded-md p-2"
+                    >
+                      <option value="">Select Rating</option>
+                      <option value="1">⭐</option>
+                      <option value="2">⭐⭐</option>
+                      <option value="3">⭐⭐⭐</option>
+                      <option value="4">⭐⭐⭐⭐</option>
+                      <option value="5">⭐⭐⭐⭐⭐</option>
+                    </select>
+                    {errors.rating && <span>{errors.rating.message}</span>}
+                  </div>
                   <div className="pb-5 flex flex-col gap-3">
                     <Label>Review:</Label>
                     <Textarea
@@ -178,70 +195,64 @@ const Review = () => {
             </AlertDialog>
           )}
         </div>
+        { isLoading ?
+        (<div className="flex items-center justify-center py-10"><Loading/></div>) :
 
-        {/* Slider Wrapper */}
-        <Swiper
-          spaceBetween={30}
-          loop={true}
-          autoplay={{
-            delay: 2500,
-            disableOnInteraction: false,
-          }}
-          breakpoints={{
-            640: {
-              slidesPerView: 1,
-              spaceBetween: 10,
-            },
-            768: {
-              slidesPerView: 2,
-              spaceBetween: 20,
-            },
-            1024: {
-              slidesPerView: 3,
-              spaceBetween: 30,
-            },
-          }}
-          pagination={{ clickable: true }}
-          modules={[Autoplay, Pagination]}
-          className="mySwiper"
-        >
-          {reviews?.map((item) => (
-            <SwiperSlide
-              key={item.id}
-              className="!h-auto mr-3 md:mx-0 overflow-hidden"
-            >
-              <div className="h-full flex flex-col group bg-white border border-solid border-gray-300 rounded-xl p-6 transition-all duration-500 w-full mx-auto hover:border-indigo-600 hover:shadow-sm">
-                <div>
-                  <div className="flex items-center justify-start space-x-2 pb-4">
-                    {[...Array(5)].map((_, index) => (
-                      <svg
-                        key={index}
-                        className="text-yellow-500 w-4 h-4"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                        stroke="currentColor"
-                      >
-                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                      </svg>
-                    ))}
+
+         ( <Swiper
+              spaceBetween={30}
+              loop={true}
+              autoplay={{
+                delay: 2500,
+                disableOnInteraction: false,
+              }}
+              breakpoints={{
+                640: {
+                  slidesPerView: 1,
+                  spaceBetween: 10,
+                },
+                768: {
+                  slidesPerView: 2,
+                  spaceBetween: 20,
+                },
+                1024: {
+                  slidesPerView: 3,
+                  spaceBetween: 30,
+                },
+              }}
+              pagination={{ clickable: true }}
+              modules={[Autoplay, Pagination]}
+              className="mySwiper"
+          >
+            {reviews?.map((item) => (
+                <SwiperSlide
+                    key={item.id}
+                    className="!h-auto mr-3 md:mx-0 overflow-hidden"
+                >
+                  <div className="h-full flex flex-col group bg-white border border-solid border-gray-300 rounded-xl p-6 transition-all duration-500 w-full mx-auto hover:border-indigo-600 hover:shadow-sm">
+                    <div>
+                      <div className="flex items-center justify-start space-x-2 pb-4">
+                        {item.rating}
+                      </div>
+                      <h3 className="text-xl font-semibold">{item.campaign_name}</h3>
+                    </div>
+                    <div className="pt-4">
+                      <p className="text-gray-700 text-base break-words">
+                        {item.comment}
+                      </p>
+                    </div>
+                    <div className="pt-4 flex items-center justify-between mt-auto">
+                      <p className="text-gray-500 text-sm">
+                        {item.patient_first_name} {item.patient_last_name}
+                      </p>
+                    </div>
                   </div>
-                  <h3 className="text-xl font-semibold">{item.campaign_name}</h3>
-                </div>
-                <div className="pt-4">
-                  <p className="text-gray-700 text-base break-words">
-                    {item.comment}
-                  </p>
-                </div>
-                <div className="pt-4 flex items-center justify-between mt-auto">
-                  <p className="text-gray-500 text-sm">
-                    {item.patient_first_name} {item.patient_last_name}
-                  </p>
-                </div>
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
+                </SwiperSlide>
+            ))}
+          </Swiper>)
+
+      }
+
       </div>
     </>
   );

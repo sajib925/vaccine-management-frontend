@@ -9,19 +9,51 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { fetchDoctorsData, fetchPatientsData, fetchServiceData, fetchUserData } from "@/logic/apiService";
 import { useUserContext } from "@/context/userContext";
+import Image from "next/image";
+import {CameraIcon, UserIcon} from "@/lib/Icons";
+import {useCallback, useState} from "react";
+import axios from "axios";
+import {useDropzone} from "react-dropzone";
 
 interface DoctorFormValues {
   mobile_no: string;
+  image: string;
 }
 
 export const Doctor = () => {
   const { setUserData, setPatient, setDoctor, setServices } = useUserContext();
   const router = useRouter();
-  const { register, handleSubmit, formState: { errors } } = useForm<DoctorFormValues>({
+  const { register, setValue,handleSubmit, formState: { errors } } = useForm<DoctorFormValues>({
     defaultValues: {
       mobile_no: "",
+      image: ""
     },
   });
+  const [imageUrl, setImageUrl] = useState(""); // State to store the uploaded image URL
+
+  // Image upload handler using Dropzone and Cloudinary
+  const onDrop = useCallback((acceptedFiles: File[]) => {
+    const file = acceptedFiles[0];
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "my_upload_preset");
+
+    axios
+        .post("https://api.cloudinary.com/v1_1/dioutvghc/image/upload", formData)
+        .then((response) => {
+          const uploadedImageUrl = response.data.secure_url;
+          setImageUrl(uploadedImageUrl);
+          setValue("image", uploadedImageUrl);
+          toast.success("Image uploaded successfully");
+        })
+        .catch((error) => {
+          toast.error("Image upload failed");
+          console.error("Error uploading image:", error);
+        });
+  }, [setValue]);
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+
 
   const mutation = useMutation({
     mutationFn: async (formData: DoctorFormValues) => {
@@ -66,8 +98,9 @@ export const Doctor = () => {
           patientsData.find((p) => p.user === userData.id) ?? null;
         const doctorData =
           doctorsData.find((d) => d.user === userData.id) ?? null;
-
+        // @ts-ignore
         setPatient(patientData);
+        // @ts-ignore
         setDoctor(doctorData);
 
         const service = await fetchServiceData();
@@ -100,6 +133,28 @@ export const Doctor = () => {
           <CardTitle className="text-center text-xl">Create Doctor Account</CardTitle>
           <CardContent>
             <form onSubmit={handleSubmit(onSubmit)}>
+              {/* Image Upload Field */}
+              <div className="py-4 flex items-center justify-center gap-3">
+                <div {...getRootProps({className: "dropzone w-auto"})}>
+                  <input {...getInputProps()} />
+                  <div className='inline-flex items-center justify-center cursor-pointer'>
+                    <div className="w-auto relative">
+                      <div className="overflow-hidden border border-gray-200 rounded-full text-gray-600 w-24 h-24">
+                        {
+                          imageUrl ? (
+                              <Image src={imageUrl} alt="Uploaded Image" className="w-full h-full object-cover" width={80} height={80} />
+                          ) : (
+                              <UserIcon />
+                          )
+                        }
+                      </div>
+                      <div className='absolute top-[50%] -right-2 z-20'>
+                        <CameraIcon />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <div className="pb-5 flex flex-col gap-3">
                 <Label className="text-base">Mobile No.:</Label>
                 <Input

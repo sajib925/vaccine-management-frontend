@@ -19,6 +19,7 @@ interface UserData {
 interface Patient {
   id: number;
   user: number;
+  image: string;
   mobile_no: string;
   nid: string;
   age: string;
@@ -28,6 +29,7 @@ interface Patient {
 interface Doctor {
   id: number;
   user: number;
+  image: string;
   mobile_no: string;
 }
 
@@ -46,10 +48,19 @@ interface Review {
   campaign_name: string;
   comment: string;
 }
+interface NavLink {
+  href: string;
+  label: string;
+  current?: boolean;
+}
+const navSubLinks: NavLink[] = [
+  { href: "/profile", label: "Profile", current: true },
+];
 
 const Navbar = () => {
   const router = useRouter();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const {
     patient,
     doctor,
@@ -68,6 +79,9 @@ const Navbar = () => {
   } = useUserContext();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const dctr = Array.isArray(doctor) ? doctor.find((m) => m.user === userData.id) : null;
+  const patnt = Array.isArray(patient) ? patient.find((c) => c.user === userData.id) : null;
+  console.log(dctr)
 
   const [authToken, setAuthToken] = useState<string>("");
   useEffect(() => {
@@ -228,8 +242,14 @@ const Navbar = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
+
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+
   return (
-    <nav className="bg-[#F8FAFC] border-gray-200 dark:bg-gray-900 w-full sticky top-0 left-0 z-50 border-b ">
+    <nav className="bg-[#F8FAFC] border-gray-200 dark:bg-gray-900 fixed w-full top-0 left-0 z-50 border-b ">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <Link
           href="/"
@@ -285,7 +305,7 @@ const Navbar = () => {
               <>
                 <li>
                   <Link
-                    href="vaccine"
+                    href="/vaccine"
                     className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 lg:hover:bg-transparent lg:border-0 lg:hover:text-blue-700 lg:p-0 dark:text-white lg:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent"
                     aria-current="page"
                   >
@@ -294,7 +314,7 @@ const Navbar = () => {
                 </li>
                 <li>
                   <Link
-                    href="campaign"
+                    href="/campaign"
                     className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 lg:hover:bg-transparent lg:border-0 lg:hover:text-blue-700 lg:p-0 dark:text-white lg:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent"
                   >
                     Campaign
@@ -307,7 +327,7 @@ const Navbar = () => {
               <>
                 <li>
                   <Link
-                    href="booking"
+                    href="/booking"
                     className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 lg:hover:bg-transparent lg:border-0 lg:hover:text-blue-700 lg:p-0 dark:text-white lg:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent"
                   >
                     Booking
@@ -315,7 +335,7 @@ const Navbar = () => {
                 </li>
                 <li>
                   <Link
-                    href="allBooking"
+                    href="/allBooking"
                     className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 lg:hover:bg-transparent lg:border-0 lg:hover:text-blue-700 lg:p-0 dark:text-white lg:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent"
                   >
                     Booking List
@@ -325,45 +345,88 @@ const Navbar = () => {
             )}
             <li>
               <Link
-                href="contact"
+                href="/contact"
                 className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 lg:hover:bg-transparent lg:border-0 lg:hover:text-blue-700 lg:p-0 dark:text-white lg:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent"
               >
                 Contact Us
               </Link>
             </li>
+            <div className="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse relative">
+              {userData?.id ? (
+                  <>
+                    <button
+                        type="button"
+                        className="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+                        aria-expanded={isDropdownOpen}
+                        onClick={toggleDropdown}
+                    >
 
-            {authToken ? (
-              <>
-                <span
-                  onClick={handleLogout}
-                  className="cursor-pointer py-2 px-4 font-semibold rounded-sm bg-slate-900 border border-slate-900 text-white hover:text-slate-900 hover:bg-white transition-all ease-in-out mb-3 lg:mb-0 text-center"
-                >
-                  Logout
-                </span>
+                      {
+                        doctor?.id ? (
+                            <Image
+                                className="w-8 h-8 rounded-full"
+                                src={doctor?.image}
+                                alt="user photo"
+                                width={25}
+                                height={25}
+                            />
+                        ) : patient?.id ? (
+                            <Image
+                                className="w-8 h-8 object-cover rounded-full"
+                                src={patient?.image}
+                                alt="user photo"
+                                width={25}
+                                height={25}
+                            />
+                        ) : (
+                            <Image
+                                className="w-8 h-8 rounded-full"
+                                src="/image/profi.png"
+                                alt="user photo"
+                                width={25}
+                                height={25}
+                            />
+                        )
+                      }
+                    </button>
+                    {isDropdownOpen && (
+                        <div
+                            className="absolute top-[55%] left-[50%] -translate-x-[50%] z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow px-4"
+                            id="user-dropdown"
+                        >
+                          <ul className="py-2" aria-labelledby="user-menu-button">
+                            {navSubLinks.map((link) => (
+                                <li key={link.label}>
+                                  <Link
+                                      href={link.href}
+                                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                                  >
+                                    {link.label}
+                                  </Link>
+                                </li>
+                            ))}
 
-                <Link
-                  href={"/profile"}
-                  className="py-2 px-4 font-semibold rounded-sm bg-slate-900 border border-slate-900 text-white hover:text-slate-900 hover:bg-white transition-all ease-in-out cursor-pointer text-center"
-                >
-                  Profile
-                </Link>
-              </>
-            ) : (
-              <>
-                <Link
-                  href={"/signIn"}
-                  className="py-2 px-4 font-semibold rounded-sm bg-slate-900 border border-slate-900 text-white hover:text-slate-900 hover:bg-white transition-all ease-in-out cursor-pointer mb-3 lg:mb-0 text-center"
-                >
-                  Sign In
-                </Link>
-                <Link
-                  href={"/signUp"}
-                  className="py-2 px-4 font-semibold rounded-sm bg-slate-900 border border-slate-900 text-white hover:text-slate-900 hover:bg-white transition-all ease-in-out cursor-pointer text-center"
-                >
-                  Sign Up
-                </Link>
-              </>
-            )}
+                            <li onClick={handleLogout}>
+                              <span className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white cursor-pointer">
+                                Logout
+                              </span>
+                            </li>
+                          </ul>
+                        </div>
+                    )}
+                  </>
+              ) : (
+                  <>
+                    <Link
+                        href={"/signIn"}
+                        className="py-2 px-4 font-semibold rounded-sm bg-slate-900 border border-slate-900 text-white hover:text-slate-900 hover:bg-white transition-all ease-in-out cursor-pointer lg:mr-2"
+                    >
+                      Open Account
+                    </Link>
+
+                  </>
+              )}
+            </div>
           </ul>
         </div>
       </div>

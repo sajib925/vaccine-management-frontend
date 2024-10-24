@@ -8,8 +8,10 @@ import { toast } from "sonner";
 
 interface FormInputs {
   name: string;
-  phone: string;
+  email: string;
+  subject: string;
   problem: string;
+  phone: string;
 }
 
 const ContactForm: React.FC = () => {
@@ -55,82 +57,124 @@ const ContactForm: React.FC = () => {
   };
 
   return (
-    <section className="bg-white dark:bg-gray-900">
-      <div className="py-8 lg:py-16 px-4 mx-auto max-w-screen-xl">
-        <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-y-4 gap-x-20">
-          <Image src={"/image/contact.svg"} width={450} height={300} alt="contact" />
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
-            <div>
+    <section className="">
+      <div className="py-8 lg:py-16 px-4 mx-auto max-w-screen-xl w-full">
+
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-8 py-12 px-4 md:px-8 lg:px-24 rounded-lg bg-gray-200">
+          <h2 className="text-2xl font-bold">Send Message</h2>
+          <div className="flex items-center flex-col lg:flex-row gap-3">
+            <div className="w-full">
               <label
-                htmlFor="name"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                  className="block mb-2 text-base font-medium text-gray-900 dark:text-gray-300"
               >
                 Your name
               </label>
               <input
-                type="text"
-                id="name"
-                {...register("name", { required: "Name is required" })}
-                className={`shadow-sm bg-gray-50 border ${
-                  errors.name ? "border-red-500" : "border-gray-300"
-                } text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light`}
-                placeholder="Your name"
+                  type="text"
+                  id="name"
+                  {...register("name", {required: "Name is required"})}
+                  className={`shadow-sm p-3 bg-gray-50 border ${
+                      errors.name ? "border-red-500" : "border-gray-300"
+                  } text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700`}
+                  placeholder="Your name"
               />
               {errors.name && (
-                <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>
+                  <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>
               )}
             </div>
-            <div>
+            <div className="w-full">
               <label
-                htmlFor="phone"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                  className="block mb-2 text-base font-medium text-gray-900 dark:text-gray-300"
+              >
+                Your Email
+              </label>
+              <input
+                  type="text"
+                  id="email"
+                  {...register("email", {required: "email is required"})}
+                  className={`block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border ${
+                      errors.email ? "border-red-500" : "border-gray-300"
+                  } shadow-sm focus:ring-primary-500 focus:border-primary-500`}
+                  placeholder="Your Email"
+              />
+              {errors.email && (
+                  <p className="text-red-500 text-xs mt-1">
+                    {errors.email.message}
+                  </p>
+              )}
+            </div>
+          </div>
+          <div className="flex items-center flex-col lg:flex-row gap-3">
+            <div className="w-full">
+              <label
+                  className="block mb-2 text-base font-medium text-gray-900 dark:text-gray-300"
               >
                 Your phone
               </label>
               <input
-                type="text"
-                id="phone"
-                {...register("phone", { required: "Phone number is required" })}
-                className={`block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border ${
-                  errors.phone ? "border-red-500" : "border-gray-300"
-                } shadow-sm focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light`}
-                placeholder="Your phone number"
+                  type="text"
+                  id="phone"
+                  {...register("phone", {required: "Phone number is required"})}
+                  className={`block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border ${
+                      errors.phone ? "border-red-500" : "border-gray-300"
+                  } shadow-sm focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light`}
+                  placeholder="Your phone number"
               />
               {errors.phone && (
-                <p className="text-red-500 text-xs mt-1">
-                  {errors.phone.message}
-                </p>
+                  <p className="text-red-500 text-xs mt-1">
+                    {errors.phone.message}
+                  </p>
               )}
             </div>
-            <div className="sm:col-span-2">
+            <div className="w-full">
               <label
-                htmlFor="problem"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
+                  className="block mb-2 text-base font-medium text-gray-900 dark:text-gray-300"
               >
-                Your message
+                Subject
               </label>
-              <textarea
+              <input
+                  type="text"
+                  id="name"
+                  {...register("subject", {required: "Subject is required"})}
+                  className={`shadow-sm p-3 bg-gray-50 border ${
+                      errors.subject ? "border-red-500" : "border-gray-300"
+                  } text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full`}
+                  placeholder="Subject"
+              />
+              {errors.subject && (
+                  <p className="text-red-500 text-xs mt-1">{errors.subject.message}</p>
+              )}
+            </div>
+
+          </div>
+          <div className="sm:col-span-2">
+            <label
+                htmlFor="problem"
+                className="block mb-2 text-base font-medium text-gray-900 dark:text-gray-400"
+            >
+              Your message
+            </label>
+            <textarea
                 id="problem"
                 rows={6}
-                {...register("problem", { required: "Message is required" })}
+                {...register("problem", {required: "Message is required"})}
                 className={`block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg shadow-sm border ${
-                  errors.problem ? "border-red-500" : "border-gray-300"
-                } focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500`}
+                    errors.problem ? "border-red-500" : "border-gray-300"
+                } focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600`}
                 placeholder="Leave a comment..."
-              ></textarea>
-              {errors.problem && (
+            ></textarea>
+            {errors.problem && (
                 <p className="text-red-500 text-xs mt-1">
                   {errors.problem.message}
                 </p>
-              )}
-            </div>
-            <div className="flex items-center justify-end">
-              <Button type="submit" className="w-full" disabled={mutation.isLoading}>
-                {mutation.isLoading ? "Sending..." : "Send message"}
-              </Button>
-            </div>
-          </form>
-        </div>
+            )}
+          </div>
+          <div className="flex items-center justify-end">
+            <Button type="submit" className="w-full py-6" disabled={mutation.isLoading}>
+              {mutation.isLoading ? "Sending..." : "Send message"}
+            </Button>
+          </div>
+        </form>
       </div>
     </section>
   );

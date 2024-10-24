@@ -9,10 +9,7 @@ const allBooking = () => {
     <>
       <Navbar />
       <main>
-        <HeroBookingForm
-          title="Welcome to booking list page"
-          desc="Effortlessly reserve your dream getaway with our seamless booking process. Explore top-tier accommodations and enjoy unforgettable moments in extraordinary locations worldwide."
-        />
+        <HeroBookingForm />
         <Bookings />
       </main>
       <Footer />

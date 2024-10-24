@@ -8,7 +8,7 @@ import Image from "next/image";
 
 export const UserType = () => {
   return (
-    <div className="max-w-screen-xl h-screen w-full mx-auto my-10 lg:my-20 px-5">
+    <div className="max-w-screen-xl h-screen w-full mx-auto mb-10 mt-20 lg:mt-32 lg:mb-20 px-5">
       <div className="grid items-center grid-cols-1 lg:grid-cols-2 gap-6">
         <Image src={"/image/users.jpg"} width={600} height={500} alt="login" />
     <div className="">

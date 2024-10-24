@@ -56,7 +56,9 @@ const LoginForm: React.FC = () => {
 
           const patientData = patientsData.find(p => p.user === userData.id) ?? null;
           const doctorData = doctorsData.find(d => d.user === userData.id) ?? null;
+          // @ts-ignore
           setPatient(patientData);
+          // @ts-ignore
           setDoctor(doctorData);
           const service = await fetchServiceData()
           setServices(Array.isArray(service) ? service : [service]);
@@ -89,7 +91,7 @@ const LoginForm: React.FC = () => {
   };
 
   return (
-    <div className="max-w-screen-xl w-full mx-auto my-10 lg:my-20 px-5">
+    <div className="max-w-screen-lg w-full mx-auto my-32 lg:my-60 px-5">
       <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-y-4 gap-x-20">
         <Image src={"/image/login.svg"} width={400} height={300} alt="login" />
         <Card>

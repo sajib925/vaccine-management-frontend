@@ -150,7 +150,7 @@ const UserProfile: React.FC = () => {
   const name = `${userData.first_name} ${userData.last_name}`;
 
   return (
-    <div className="max-w-screen-xl w-full mx-auto my-10 lg:my-20 px-5">
+    <div className="max-w-screen-xl w-full mx-auto mb-10 mt-20 lg:mt-32 lg:mb-20 px-5">
       <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-y-4 gap-x-20">
         <Image src={"/image/login.svg"} width={400} height={300} alt="login" />
         <div>
@@ -159,13 +159,36 @@ const UserProfile: React.FC = () => {
           </h3>
           <Card>
             <div className="relative h-[150px] w-full rounded-t-sm bg-primary">
-              <Image
-                className="absolute left-[50%] top-[0%] -translate-x-[50%] transform rounded-full"
-                src={"/image/profile-picture.png"}
-                alt={"avatar"}
-                width={250}
-                height={250}
-              />
+
+              {
+                doctor?.id ? (
+                    <div className="absolute left-[50%] max-w-[150px] w-full h-[150px] top-[25%] -translate-x-[50%] transform rounded-full overflow-hidden">
+                      <Image
+                          className="w-full h-full object-cover object-center"
+                          src={doctor?.image}
+                          alt="user photo"
+                          width={250}
+                          height={250}
+                      />
+                    </div>
+                ) : patient?.id ? (
+                    <Image
+                        className="absolute left-[50%] top-[0%] -translate-x-[50%] transform rounded-full"
+                        src={patient?.image}
+                        alt="user photo"
+                        width={250}
+                        height={250}
+                    />
+                ) : (
+                    <Image
+                        className="absolute left-[50%] top-[0%] -translate-x-[50%] transform rounded-full"
+                        src={"/image/profile-picture.png"}
+                        alt={"avatar"}
+                        width={250}
+                        height={250}
+                    />
+                )
+              }
             </div>
             <CardHeader className="px-0 pb-0 pt-20 text-center text-xl lg:text-2xl font-bold">
               {name}

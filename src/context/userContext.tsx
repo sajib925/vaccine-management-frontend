@@ -4,6 +4,7 @@ import { useContext, useState, createContext } from "react";
 interface Patient {
   id: number;
   user: number;
+  image: string;
   mobile_no: string;
   nid: string;
   age: string;
@@ -13,6 +14,7 @@ interface Patient {
 interface Doctor {
   id: number;
   user: number;
+  image: string;
   mobile_no: string;
 }
 

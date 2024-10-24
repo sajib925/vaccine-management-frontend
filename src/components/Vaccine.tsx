@@ -16,6 +16,7 @@ import { Button } from "./ui/button";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import { toast } from "sonner";
+import {Loading} from "@/components/Loading";
 
 interface VaccineData {
   name: string;
@@ -103,7 +104,7 @@ const Vaccines: React.FC = () => {
     error,
   } = useQuery("vaccines", fetchVaccines);
 
-  const { register, handleSubmit, setValue, reset } = useForm<VaccineData>();
+  const {register, handleSubmit, setValue, reset} = useForm<VaccineData>();
   const [updatingVaccine, setUpdatingVaccine] = useState<Vaccine | null>(null);
   const [modalCloseAdd, setModalCloseAdd] = useState(false);
   const [modalClose, setModalClose] = useState(false);
@@ -127,28 +128,28 @@ const Vaccines: React.FC = () => {
   });
 
   const updateVaccineMutation = useMutation(
-    (data: { id: number; vaccineData: VaccineData }) =>
-      updateVaccineData(data.id, data.vaccineData),
-    {
-      onSuccess: () => {
-        queryClient.refetchQueries("vaccines");
-        toast.success("Vaccine updated successfully");
-        setModalClose(false);
-        reset();
-        setUpdatingVaccine(null);
-      },
-      onError: (error: any) => {
-        if (axios.isAxiosError(error) && error.response) {
-          const responseData = error.response.data;
-          const errorMessage = Object.values(responseData).flat().join(" ");
-          toast.error(errorMessage);
-        } else {
-          toast.error("Something went wrong");
-        }
-      },
-    }
+      (data: { id: number; vaccineData: VaccineData }) =>
+          updateVaccineData(data.id, data.vaccineData),
+      {
+        onSuccess: () => {
+          queryClient.refetchQueries("vaccines");
+          toast.success("Vaccine updated successfully");
+          setModalClose(false);
+          reset();
+          setUpdatingVaccine(null);
+        },
+        onError: (error: any) => {
+          if (axios.isAxiosError(error) && error.response) {
+            const responseData = error.response.data;
+            const errorMessage = Object.values(responseData).flat().join(" ");
+            toast.error(errorMessage);
+          } else {
+            toast.error("Something went wrong");
+          }
+        },
+      }
   );
-  
+
   const deleteVaccineMutation = useMutation(deleteVaccineData, {
     onSuccess: () => {
       queryClient.invalidateQueries("vaccines");
@@ -185,71 +186,67 @@ const Vaccines: React.FC = () => {
     }
   };
 
-  if (isLoading)
-    return <p className="text-center text-green-800">Loading...</p>;
-  if (isError)
-    return (
-      <p className="text-center text-red-600">
-        Error fetching data:{" "}
-        {error instanceof Error ? error.message : "Unknown error"}
-      </p>
-    );
+  // if (isLoading) return <div className="flex items-center justify-center my-60"><Loading/></div>
+
 
   return (
-    <div
-      id="vaccines"
-      className="max-w-screen-xl w-full mx-auto my-[80px] px-5"
-    >
-      <div className="flex items-center justify-center md:justify-between flex-wrap pb-4 gap-3 my-6">
-        <div className="">
+      <div
+          id="vaccines"
+          className="max-w-screen-xl w-full mx-auto my-[80px] px-5"
+      >
+        <div className="flex items-center justify-center md:justify-between flex-wrap pb-4 gap-3 my-6">
+          <div className="">
           <span className="text-sm text-gray-500 font-medium text-center md:text-start block mb-2">
             VACCINES
           </span>
-          <h2 className="scroll-m-20 text-center md:text-start justify-center md:justify-between text-3xl font-bold">
-            Explore All Available Vaccines
-          </h2>
-        </div>
-        <AlertDialog onOpenChange={setModalCloseAdd} open={modalCloseAdd}>
-          <AlertDialogTrigger asChild>
-            <span className="text-center py-3 w-full md:w-auto md:px-8 font-semibold rounded-sm bg-slate-900 border border-slate-900 text-white hover:text-slate-900 hover:bg-white transition-all ease-in-out cursor-pointer">
+            <h2 className="scroll-m-20 text-center md:text-start justify-center md:justify-between text-3xl font-bold">
+              Explore All Available Vaccines
+            </h2>
+          </div>
+          <AlertDialog onOpenChange={setModalCloseAdd} open={modalCloseAdd}>
+            <AlertDialogTrigger asChild>
+            <span
+                className="text-center py-3 w-full md:w-auto md:px-8 font-semibold rounded-sm bg-slate-900 border border-slate-900 text-white hover:text-slate-900 hover:bg-white transition-all ease-in-out cursor-pointer">
               Add Vaccine
             </span>
-          </AlertDialogTrigger>
-          <AlertDialogOverlay />
-          <AlertDialogContent>
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <div className="pb-5 flex flex-col gap-3">
-                <Label>Add Vaccine:</Label>
-                <Input
-                  {...register("name", { required: true })}
-                  placeholder="Vaccine Name"
-                />
-              </div>
-              <div className="pb-5 flex flex-col gap-3">
-                <Label>Add Schedule:</Label>
-                <Input
-                  {...register("schedule", { required: true })}
-                  placeholder="2024-09-03"
-                />
-              </div>
-              <Button
-                type="submit"
-                className="w-full"
-                disabled={addVaccineMutation.isLoading}
-              >
-                {addVaccineMutation.isLoading ? "Adding.." : "Add"}
-              </Button>
-            </form>
-            <AlertDialogFooter>
-              <AlertDialogCancel className="w-full">Cancel</AlertDialogCancel>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
-      </div>
-
-      <Card className="w-full overflow-auto">
-        <table className="min-w-full divide-y divide-gray-200">
-          <thead>
+            </AlertDialogTrigger>
+            <AlertDialogOverlay/>
+            <AlertDialogContent>
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <div className="pb-5 flex flex-col gap-3">
+                  <Label>Add Vaccine:</Label>
+                  <Input
+                      {...register("name", {required: true})}
+                      placeholder="Vaccine Name"
+                  />
+                </div>
+                <div className="pb-5 flex flex-col gap-3">
+                  <Label>Add Schedule:</Label>
+                  <Input
+                      {...register("schedule", {required: true})}
+                      placeholder="2024-09-03"
+                  />
+                </div>
+                <Button
+                    type="submit"
+                    className="w-full"
+                    disabled={addVaccineMutation.isLoading}
+                >
+                  {addVaccineMutation.isLoading ? "Adding.." : "Add"}
+                </Button>
+              </form>
+              <AlertDialogFooter>
+                <AlertDialogCancel className="w-full">Cancel</AlertDialogCancel>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+        </div>
+        if (isLoading) {
+        <div className="flex items-center justify-center my-60"><Loading/></div>
+      } else {
+        <Card className="w-full overflow-auto">
+          <table className="min-w-full divide-y divide-gray-200">
+            <thead>
             <tr>
               <th className="pl-10 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Name
@@ -261,72 +258,74 @@ const Vaccines: React.FC = () => {
                 Actions
               </th>
             </tr>
-          </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
+            </thead>
+            <tbody className="bg-white divide-y divide-gray-200">
             {vaccines.map((vaccine) => (
-              <tr key={vaccine.id}>
-                <td className="px-6 text-left py-4 whitespace-nowrap">
-                  {vaccine.name}
-                </td>
-                <td className="px-6 text-center py-4 whitespace-nowrap">
-                  {vaccine.schedule}
-                </td>
-                <td className="px-6 text-right py-4 whitespace-nowrap flex justify-end gap-2">
-                  <AlertDialog onOpenChange={setModalClose} open={modalClose}>
-                    <AlertDialogTrigger asChild>
-                      <Button onClick={() => handleUpdate(vaccine)}>
-                        Update
-                      </Button>
-                    </AlertDialogTrigger>
-                    <AlertDialogOverlay />
-                    <AlertDialogContent>
-                      <form onSubmit={handleSubmit(onSubmitUpdate)}>
-                        <div className="pb-5 flex flex-col gap-3">
-                          <Label>Update Vaccine:</Label>
-                          <Input
-                            {...register("name", { required: true })}
-                            placeholder="Vaccine Name"
-                            defaultValue={vaccine.name}
-                          />
-                        </div>
-                        <div className="pb-5 flex flex-col gap-3">
-                          <Label>Update Schedule:</Label>
-                          <Input
-                            {...register("schedule", { required: true })}
-                            placeholder="2024-09-03"
-                            defaultValue={vaccine.schedule}
-                          />
-                        </div>
-                        <Button
-                          type="submit"
-                          className="w-full"
-                          disabled={updateVaccineMutation.isLoading}
-                        >
-                          {updateVaccineMutation.isLoading
-                            ? "Updating"
-                            : "Update"}
+                <tr key={vaccine.id}>
+                  <td className="px-6 text-left py-4 whitespace-nowrap">
+                    {vaccine.name}
+                  </td>
+                  <td className="px-6 text-center py-4 whitespace-nowrap">
+                    {vaccine.schedule}
+                  </td>
+                  <td className="px-6 text-right py-4 whitespace-nowrap flex justify-end gap-2">
+                    <AlertDialog onOpenChange={setModalClose} open={modalClose}>
+                      <AlertDialogTrigger asChild>
+                        <Button onClick={() => handleUpdate(vaccine)}>
+                          Update
                         </Button>
-                      </form>
-                      <AlertDialogFooter>
-                        <AlertDialogCancel className="w-full">
-                          Cancel
-                        </AlertDialogCancel>
-                      </AlertDialogFooter>
-                    </AlertDialogContent>
-                  </AlertDialog>
-                  <Button
-                    onClick={() => deleteVaccineMutation.mutate(vaccine.id)}
-                    className="bg-red-500 hover:bg-red-700"
-                  >
-                    {deleteVaccineMutation.isLoading ? "Deleting" : "Delete"}
-                  </Button>
-                </td>
-              </tr>
+                      </AlertDialogTrigger>
+                      <AlertDialogOverlay/>
+                      <AlertDialogContent>
+                        <form onSubmit={handleSubmit(onSubmitUpdate)}>
+                          <div className="pb-5 flex flex-col gap-3">
+                            <Label>Update Vaccine:</Label>
+                            <Input
+                                {...register("name", {required: true})}
+                                placeholder="Vaccine Name"
+                                defaultValue={vaccine.name}
+                            />
+                          </div>
+                          <div className="pb-5 flex flex-col gap-3">
+                            <Label>Update Schedule:</Label>
+                            <Input
+                                {...register("schedule", {required: true})}
+                                placeholder="2024-09-03"
+                                defaultValue={vaccine.schedule}
+                            />
+                          </div>
+                          <Button
+                              type="submit"
+                              className="w-full"
+                              disabled={updateVaccineMutation.isLoading}
+                          >
+                            {updateVaccineMutation.isLoading
+                                ? "Updating"
+                                : "Update"}
+                          </Button>
+                        </form>
+                        <AlertDialogFooter>
+                          <AlertDialogCancel className="w-full">
+                            Cancel
+                          </AlertDialogCancel>
+                        </AlertDialogFooter>
+                      </AlertDialogContent>
+                    </AlertDialog>
+                    <Button
+                        onClick={() => deleteVaccineMutation.mutate(vaccine.id)}
+                        className="bg-red-500 hover:bg-red-700"
+                    >
+                      {deleteVaccineMutation.isLoading ? "Deleting" : "Delete"}
+                    </Button>
+                  </td>
+                </tr>
             ))}
-          </tbody>
-        </table>
-      </Card>
-    </div>
+            </tbody>
+          </table>
+        </Card>
+      }
+
+      </div>
   );
 };
 

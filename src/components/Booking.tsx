@@ -16,6 +16,7 @@ import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import { toast } from "sonner";
 import { Card } from "./ui/card";
+import {Loading} from "@/components/Loading";
 
 interface Booking {
   id: number;
@@ -111,18 +112,18 @@ const Bookings: React.FC = () => {
     const fetchCampaigns = async () => {
       try {
         const token =
-          window.localStorage && window.localStorage.getItem("authToken");
+            window.localStorage && window.localStorage.getItem("authToken");
         if (!token) {
           throw new Error("Authorization token not found");
         }
 
         const res = await axios.get<Campaign[]>(
-          "https://vaccine-management-supebase.vercel.app/api/campaign/",
-          {
-            headers: {
-              Authorization: `Token ${token}`,
-            },
-          }
+            "https://vaccine-management-supebase.vercel.app/api/campaign/",
+            {
+              headers: {
+                Authorization: `Token ${token}`,
+              },
+            }
         );
         setCampaigns(res.data);
       } catch (error: unknown) {
@@ -135,18 +136,18 @@ const Bookings: React.FC = () => {
     const fetchVaccines = async () => {
       try {
         const token =
-          window.localStorage && window.localStorage.getItem("authToken");
+            window.localStorage && window.localStorage.getItem("authToken");
         if (!token) {
           throw new Error("Authorization token not found");
         }
 
         const res = await axios.get<Vaccine[]>(
-          "https://vaccine-management-supebase.vercel.app/api/campaign/vaccine/",
-          {
-            headers: {
-              Authorization: `Token ${token}`,
-            },
-          }
+            "https://vaccine-management-supebase.vercel.app/api/campaign/vaccine/",
+            {
+              headers: {
+                Authorization: `Token ${token}`,
+              },
+            }
         );
         setVaccines(res.data);
       } catch (error: unknown) {
@@ -183,7 +184,7 @@ const Bookings: React.FC = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedBooking, setSelectedBooking] = useState<Booking | null>(null);
 
-  const { register, handleSubmit, reset } = useForm<BookingFormInput>();
+  const {register, handleSubmit, reset} = useForm<BookingFormInput>();
 
   const handleUpdateBooking = (booking: Booking) => {
     setSelectedBooking(booking);
@@ -198,38 +199,32 @@ const Bookings: React.FC = () => {
 
   const onSubmit: SubmitHandler<BookingFormInput> = (data) => {
     if (selectedBooking) {
-      updateMutation.mutate({ id: selectedBooking.id, data });
+      updateMutation.mutate({id: selectedBooking.id, data});
       setModalOpen(false);
       setSelectedBooking(null);
     }
   };
 
-  if (isLoading)
-    return <p className="text-center text-green-800">Loading...</p>;
-  if (error)
-    return (
-      <p className="text-center text-red-800">
-        Error: {(error as Error).message}
-      </p>
-    );
+  if (isLoading) return <div className="flex items-center justify-center my-60"><Loading/></div>
+
 
   return (
-    <div
-      id="bookings"
-      className="max-w-screen-xl w-full mx-auto my-[80px] px-5"
-    >
-      <div className="mb-6 md:mb-10">
+      <div
+          id="bookings"
+          className="max-w-screen-xl w-full mx-auto my-[80px] px-5"
+      >
+        <div className="mb-6 md:mb-10">
         <span className="text-sm text-gray-500 font-medium text-center md:text-start block mb-2">
           BOOKINGS
         </span>
-        <h2 className="scroll-m-20 text-center md:text-start justify-center md:justify-between text-3xl font-bold">
-          View and manage all your bookings here
-        </h2>
-      </div>
+          <h2 className="scroll-m-20 text-center md:text-start justify-center md:justify-between text-3xl font-bold">
+            View and manage all your bookings here
+          </h2>
+        </div>
 
-      <Card className="w-full overflow-auto">
-        <table className="min-w-full divide-y divide-gray-200">
-          <thead>
+        <Card className="w-full overflow-auto">
+          <table className="min-w-full divide-y divide-gray-200">
+            <thead>
             <tr>
               <th className="pl-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Patient Name:
@@ -250,27 +245,27 @@ const Bookings: React.FC = () => {
                 Actions
               </th>
             </tr>
-          </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
+            </thead>
+            <tbody className="bg-white divide-y divide-gray-200">
             {bookings?.map((booking) => (
-              <tr key={booking.id}>
-                <td className="px-6 text-left py-4 whitespace-nowrap">
-                  {`${booking.patient_first_name} ${booking.patient_last_name}`}
-                </td>
-                <td className="px-6 text-center py-4 whitespace-nowrap">
-                  {booking.campaign_name}
-                </td>
-                <td className="px-6 text-center py-4 whitespace-nowrap">
-                  {booking.vaccine_name}
-                </td>
-                <td className="px-6 text-center py-4 whitespace-nowrap">
-                  {booking.first_dose_date}
-                </td>
-                <td className="px-6 text-center py-4 whitespace-nowrap">
-                  {booking.second_dose_date}
-                </td>
-                <td className="px-6 text-right py-4 whitespace-nowrap">
-                  {/* <AlertDialog onOpenChange={setModalOpen} open={modalOpen}>
+                <tr key={booking.id}>
+                  <td className="px-6 text-left py-4 whitespace-nowrap">
+                    {`${booking.patient_first_name} ${booking.patient_last_name}`}
+                  </td>
+                  <td className="px-6 text-center py-4 whitespace-nowrap">
+                    {booking.campaign_name}
+                  </td>
+                  <td className="px-6 text-center py-4 whitespace-nowrap">
+                    {booking.vaccine_name}
+                  </td>
+                  <td className="px-6 text-center py-4 whitespace-nowrap">
+                    {booking.first_dose_date}
+                  </td>
+                  <td className="px-6 text-center py-4 whitespace-nowrap">
+                    {booking.second_dose_date}
+                  </td>
+                  <td className="px-6 text-right py-4 whitespace-nowrap">
+                    {/* <AlertDialog onOpenChange={setModalOpen} open={modalOpen}>
                     <AlertDialogTrigger asChild>
                       <Button onClick={() => handleUpdateBooking(booking)}>Update</Button>
                     </AlertDialogTrigger>
@@ -305,19 +300,19 @@ const Bookings: React.FC = () => {
                     </AlertDialogContent>
                   </AlertDialog> */}
 
-                  <Button
-                    onClick={() => deleteMutation.mutate(booking.id)}
-                    className=""
-                  >
-                    Delete
-                  </Button>
-                </td>
-              </tr>
+                    <Button
+                        onClick={() => deleteMutation.mutate(booking.id)}
+                        className=""
+                    >
+                      Delete
+                    </Button>
+                  </td>
+                </tr>
             ))}
-          </tbody>
-        </table>
-      </Card>
-    </div>
+            </tbody>
+          </table>
+        </Card>
+      </div>
   );
 };
 

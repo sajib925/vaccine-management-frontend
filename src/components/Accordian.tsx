@@ -58,13 +58,10 @@ const FaqAccordion: React.FC = () => {
     },
   ];
 
-  function setBannerOpen(arg0: boolean): void {
-    throw new Error("Function not implemented.");
-  }
 
   return (
-    <div className="relative font-inter antialiased">
-      <div className="relative flex flex-col justify-center bg-slate-50 overflow-hidden">
+    <div className="relative">
+      <div className="flex flex-col justify-center">
         <div className="max-w-screen-xl w-full mx-auto px-4 md:px-6 py-10 lg:py-20">
           <div className="mb-6 md:mb-10">
             <span className="text-sm text-gray-500 font-medium text-center md:text-start block mb-2">
@@ -81,7 +78,7 @@ const FaqAccordion: React.FC = () => {
                   <button
                     id={`faqs-title-${panel.id}`}
                     type="button"
-                    className="flex items-center justify-between w-full text-left font-semibold py-2"
+                    className="flex items-center justify-between w-full text-xl lg:text-2xl text-left font-medium py-2"
                     onClick={() => togglePanel(panel.id)}
                     aria-expanded={expandedPanels.includes(panel.id)}
                     aria-controls={`faqs-text-${panel.id}`}
@@ -125,7 +122,7 @@ const FaqAccordion: React.FC = () => {
                   }`}
                 >
                   <div className="overflow-hidden">
-                    <p className="pb-3">{panel.answer}</p>
+                    <p className="pb-3 text-base">{panel.answer}</p>
                   </div>
                 </div>
               </div>

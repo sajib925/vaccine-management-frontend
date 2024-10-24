@@ -5,6 +5,9 @@ import Hero from "@/components/Hero";
 import Navbar from "@/components/Navbar";
 import Review from "@/components/Review";
 import { Service } from "@/components/Service";
+import HeroSection from "@/components/HeroSlider";
+import HeroSlider from "@/components/HeroSlider";
+import CTASection from "@/components/CTASection";
 
 
 export default function Home() {
@@ -12,11 +15,13 @@ export default function Home() {
     <>
       <Navbar />
       <main>
-        <Hero />
+        {/*<Hero />*/}
+          <HeroSlider />
         <Service />
         <Campaigns />
         <Review />
         <FaqAccordion />
+          <CTASection />
       </main>
       <Footer />
     </>
