@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { Ubuntu } from "next/font/google";
+import { Open_Sans } from "next/font/google";
 import "./globals.css";
 import { UserProvider } from "@/context/userContext";
 import { Toaster } from "sonner";
 import ClientProvider from "./ClientProvider";
 
-const ubuntu = Ubuntu({ subsets: ["latin"], weight: ["400", "500", "700"] });
+const openSans = Open_Sans({ subsets: ["latin"], weight: ["400", "500", "600", "700"] });
 
 export const metadata: Metadata = {
   title: "Vaccine Management",
@@ -19,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={ubuntu.className}>
+      <body className={openSans.className}>
         <UserProvider>
           <ClientProvider>{children}</ClientProvider>
         </UserProvider>

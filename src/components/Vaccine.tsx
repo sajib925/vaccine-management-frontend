@@ -241,10 +241,12 @@ const Vaccines: React.FC = () => {
             </AlertDialogContent>
           </AlertDialog>
         </div>
-        if (isLoading) {
+        
+        
+      { isLoading ? (
         <div className="flex items-center justify-center my-60"><Loading/></div>
-      } else {
-        <Card className="w-full overflow-auto">
+      ) : 
+       ( <Card className="w-full overflow-auto">
           <table className="min-w-full divide-y divide-gray-200">
             <thead>
             <tr>
@@ -322,7 +324,7 @@ const Vaccines: React.FC = () => {
             ))}
             </tbody>
           </table>
-        </Card>
+        </Card>)
       }
 
       </div>
