@@ -182,7 +182,7 @@ const UserProfile: React.FC = () => {
                 ) : (
                     <Image
                         className="absolute left-[50%] top-[0%] -translate-x-[50%] transform rounded-full"
-                        src={"/image/profile-picture.png"}
+                        src={"/image/profile-image.jpg"}
                         alt={"avatar"}
                         width={250}
                         height={250}
