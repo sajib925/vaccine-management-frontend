@@ -47,7 +47,7 @@ const HeroSlider = () => {
                                     Stay Safe with Easy Vaccination
                                 </h1>
                                 <p className="leading-7 mt-4 lg:mt-6 text-[#1c1c1c] max-w-[580px]">
-                                    {`Book vaccines, get campaign details, and manage your appointments with ease. Your health journey is simplified with our comprehensive vaccination platform.`}
+                                    {`Stay safe with easy vaccination access. Our platform connects patients with doctors, simplifying appointment booking and providing essential information to ensure a smooth vaccination experience`}
                                 </p>
                                 <div className="flex items-center justify-start gap-4 mt-4">
                                 {!authToken && (
@@ -87,7 +87,7 @@ const HeroSlider = () => {
                                     Your Vaccination Journey Made Simple
                                 </h1>
                                 <p className="leading-7 mt-4 lg:mt-6 text-[#1c1c1c] max-w-[580px]">
-                                    {`Book vaccines, get campaign details, and manage your appointments with ease. Your health journey is simplified with our comprehensive vaccination platform.`}
+                                    {`Your vaccination journey is made simple with our platform, connecting patients and doctors effortlessly. Book appointments, manage campaigns, and share your experiences with ease`}
                                 </p>
                                 <div className="flex items-center justify-start gap-4 mt-4">
                                     {!authToken && (
@@ -127,7 +127,7 @@ const HeroSlider = () => {
                                     Book Vaccines, Join Health Campaigns
                                 </h1>
                                 <p className="leading-7 mt-4 lg:mt-6 text-[#1c1c1c] max-w-[580px]">
-                                    {`Book vaccines, get campaign details, and manage your appointments with ease. Your health journey is simplified with our comprehensive vaccination platform.`}
+                                    {`Book your vaccines and join health campaigns effortlessly. Our platform simplifies the process, ensuring you stay updated and protected while participating in community health initiatives.`}
                                 </p>
                                 <div className="flex items-center justify-start gap-4 mt-4">
                                     {!authToken && (

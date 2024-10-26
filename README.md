@@ -1,6 +1,6 @@
 # Vaccination Management System Frontend
 
-This frontend for the Vaccination Management System allows users to interact with the backend functionalities. Built with Next.js, TypeScript, and Tailwind CSS, it provides an intuitive interface for patients and doctors.
+The Vaccination Management System frontend offers a seamless user experience for both patients and doctors. Built with Next.js, TypeScript, and Tailwind CSS, it facilitates secure interactions, appointment scheduling, and campaign management. Users benefit from an intuitive interface that simplifies navigation and enhances overall efficiency in managing vaccinations.
 
 ## Tech Stack
 
@@ -13,9 +13,11 @@ This frontend for the Vaccination Management System allows users to interact wit
 
 ## Features
 
+### Features
 - **User Authentication**: Secure login for both doctors and patients.
 - **Profile Management**: Users can update and manage their profile information.
 - **Campaign Management**: Doctors can create, update, and manage vaccination campaigns.
+- **Vaccine Management**: Doctors can add, edit, and delete vaccines associated with campaigns.
 - **Appointment Booking**: Patients can book vaccination appointments for available campaigns.
 - **Review System**: Patients can leave reviews for vaccines and campaigns to share their experiences.
 - **Responsive Design**: Optimized for seamless use on both mobile and desktop devices.
@@ -51,6 +53,8 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 
 ## Deploy on Vercel
+
+###### Front-End Live Link : https://vaccine-management-frontend.vercel.app/
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
