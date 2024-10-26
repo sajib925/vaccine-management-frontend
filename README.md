@@ -11,12 +11,15 @@ This frontend for the Vaccination Management System allows users to interact wit
 
 ## Features
 
-- User authentication for both doctors and patients
-- Profile management for users
-- Doctors can create and manage vaccination campaigns
-- Patients can book vaccination appointments
-- Patients can leave reviews for vaccines and campaigns
-- Responsive design for mobile and desktop users
+## Features
+
+- **User Authentication**: Secure login for both doctors and patients.
+- **Profile Management**: Users can update and manage their profile information.
+- **Campaign Management**: Doctors can create, update, and manage vaccination campaigns.
+- **Appointment Booking**: Patients can book vaccination appointments for available campaigns.
+- **Review System**: Patients can leave reviews for vaccines and campaigns to share their experiences.
+- **Responsive Design**: Optimized for seamless use on both mobile and desktop devices.
+
 
 ## Installation
 
@@ -46,15 +49,6 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
 ## Deploy on Vercel
 
