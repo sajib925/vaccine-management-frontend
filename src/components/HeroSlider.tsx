@@ -49,14 +49,12 @@ const HeroSlider = () => {
                                 <p className="leading-7 mt-4 lg:mt-6 text-[#1c1c1c] max-w-[580px]">
                                     {`Stay safe with easy vaccination access. Our platform connects patients with doctors, simplifying appointment booking and providing essential information to ensure a smooth vaccination experience`}
                                 </p>
-                                <div className="flex items-center justify-start gap-4 mt-4">
+                                <div className="flex items-center flex-col md:flex-row justify-start gap-4 mt-4">
                                 {!authToken && (
-                                    <div className="flex items-center flex-wrap gap-x-3">
                                         <Link href={"/signIn"}
                                               className="py-3 w-full md:w-auto md:px-8 font-semibold rounded-sm bg-[#091c47] text-white hover:bg-[#0057b8] transition-all ease-in-out cursor-pointer text-center">
                                             Get Vaccine
                                         </Link>
-                                    </div>
                                 )}
                                 {
                                     userData.id ?
@@ -89,14 +87,12 @@ const HeroSlider = () => {
                                 <p className="leading-7 mt-4 lg:mt-6 text-[#1c1c1c] max-w-[580px]">
                                     {`Your vaccination journey is made simple with our platform, connecting patients and doctors effortlessly. Book appointments, manage campaigns, and share your experiences with ease`}
                                 </p>
-                                <div className="flex items-center justify-start gap-4 mt-4">
+                                <div className="flex items-center flex-col md:flex-row justify-start gap-4 mt-4">
                                     {!authToken && (
-                                        <div className="flex items-center flex-wrap gap-x-3">
                                             <Link href={"/signIn"}
                                                   className="py-3 w-full md:w-auto md:px-8 font-semibold rounded-sm bg-[#091c47] text-white hover:bg-[#0057b8] transition-all ease-in-out cursor-pointer text-center">
                                                 Get Vaccine
                                             </Link>
-                                        </div>
                                     )}
                                     {
                                         userData.id ?
@@ -129,14 +125,12 @@ const HeroSlider = () => {
                                 <p className="leading-7 mt-4 lg:mt-6 text-[#1c1c1c] max-w-[580px]">
                                     {`Book your vaccines and join health campaigns effortlessly. Our platform simplifies the process, ensuring you stay updated and protected while participating in community health initiatives.`}
                                 </p>
-                                <div className="flex items-center justify-start gap-4 mt-4">
+                                <div className="flex items-center flex-col md:flex-row justify-start gap-4 mt-4">
                                     {!authToken && (
-                                        <div className="flex items-center flex-wrap gap-x-3">
                                             <Link href={"/signIn"}
                                                   className="py-3 w-full md:w-auto md:px-8 font-semibold rounded-sm bg-[#091c47] text-white hover:bg-[#0057b8] transition-all ease-in-out cursor-pointer text-center">
                                                 Get Vaccine
                                             </Link>
-                                        </div>
                                     )}
                                     {
                                         userData.id ?
