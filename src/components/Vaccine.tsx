@@ -68,7 +68,7 @@ const updateVaccineData = async (id: number, data: VaccineData) => {
     throw new Error("Authorization token not found");
   }
   const response = await axios.put(
-    `https://vaccine-management-supebase.vercel.app/api/campaign/${id}/`,
+    `https://vaccine-management-supebase.vercel.app/api/campaign/vaccine/${id}/`,
     data,
     {
       headers: {
@@ -86,7 +86,7 @@ const deleteVaccineData = async (id: number) => {
     throw new Error("Authorization token not found");
   }
   await axios.delete(
-    `https://vaccine-management-supebase.vercel.app/api/campaign/${id}/`,
+    `https://vaccine-management-supebase.vercel.app/api/campaign/vaccine/${id}/`,
     {
       headers: {
         Authorization: `Token ${token}`,
@@ -317,7 +317,8 @@ const Vaccines: React.FC = () => {
                         onClick={() => deleteVaccineMutation.mutate(vaccine.id)}
                         className="bg-red-500 hover:bg-red-700"
                     >
-                      {deleteVaccineMutation.isLoading ? "Deleting" : "Delete"}
+                      {/*{deleteVaccineMutation.isLoading ? "Deleting" : "Delete"}*/}
+                      Delete
                     </Button>
                   </td>
                 </tr>
